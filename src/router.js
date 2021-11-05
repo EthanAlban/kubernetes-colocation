@@ -6,21 +6,10 @@ Vue.use(Router)
 export default new Router({
 	mode: 'history',
 	base: process.env.BASE_URL,
-	routes: [{
-			path: '/test',
-			name: '/test',
-			component(resolve) {
-				require(['@/views/test.vue'], resolve)
-			},
-			meta: {
-				// 页面标题title
-				title: '电科820订正'
-			}
-			// component: () => import('@/views/Login.vue')
-		},
+	routes: [
 		{
 			path: '/',
-			redirect: '/home/os_updates'
+			redirect: '/home/pod_exam'
 		},
 
 		{
@@ -28,25 +17,25 @@ export default new Router({
 			name: 'home',
 			component: () => import('@/views/index.vue'),
 			children: [{
-				path: '/home/os_updates',
-				name: 'os_updates',
+				path: '/home/pod_exam',
+				name: 'pod_exam',
 				component(resolve) {
-					require(['@/views/os_updates.vue'], resolve)
+					require(['@/views/pod_exam.vue'], resolve)
 				},
 				meta: {
 					// 页面标题title
-					title: 'os订正'
+					title: 'pod例子'
 				}
 				// component: () => import('@/views/Home/Nav1.vue'),
 			}, {
-				path: '/home/ds_updates',
-				name: 'ds_updates',
+				path: '/home/device_handler',
+				name: 'device_handler',
 				component(resolve) {
-					require(['@/views/ds_updates.vue'], resolve)
+					require(['@/views/device_handler.vue'], resolve)
 				},
 				meta: {
 					// 页面标题title
-					title: 'ds订正'
+					title: 'device操作'
 				}
 				// component: () => import('@/views/Home/Nav1.vue'),
 			}, ]

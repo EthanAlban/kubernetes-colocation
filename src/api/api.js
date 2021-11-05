@@ -8,18 +8,11 @@ import {
 } from '../utils'
 import axios from 'axios'
 export default {
-	NewCaptId: () => {
-		return Get('new')
+	GetPodByPodname:podname=>{
+		return Get('pod/get_pod_by_podname?podname='+podname)
 	},
-	// 鉴别验证码
-	VerifyCaptcha: params=>{
-		return Get('verify',params)
-	},
-	GetAllUpdates:subject=>{
-		return Get('get_all_updates?subject='+subject)
-	},
-	InsertNewUpdate:params=>{
-		console.log(params)
-		return Post('insert_new_update',params)
-	}
+	// InsertNewUpdate:params=>{
+	// 	console.log(params)
+	// 	return Post('insert_new_update',params)
+	// }
 }

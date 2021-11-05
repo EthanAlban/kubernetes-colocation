@@ -62,7 +62,7 @@ module.exports = {
 			// oj服务器
 			'/api': {
 				// target: 'http://192.168.10.63:30001',
-				target: 'http://47.96.99.172:8080',
+				target: 'http://192.168.1.128:6666',
 				// target: 'http://192.168.128.0:8080/',
 				ws: true,
 				changeOrigin: true,
