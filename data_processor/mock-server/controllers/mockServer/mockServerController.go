@@ -48,7 +48,7 @@ func (ms *MockServerController) PublishUsage() {
 	metas := machineMap[nodeName]
 	for _, meta := range metas {
 		if meta.TimeStamp > targetSec {
-			fmt.Println(meta)
+			//fmt.Println(meta)
 			res = meta
 			break
 		}

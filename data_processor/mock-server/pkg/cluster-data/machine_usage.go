@@ -11,7 +11,6 @@ import (
 	"io"
 	"log"
 	"os"
-	"sort"
 	"strconv"
 )
 
@@ -34,12 +33,12 @@ func init() {
 }
 
 func BuildUsageRecords() {
-	metas := ReadClusterUsageFromCsv(CLUSTE_USAGE_FILE, 5000)
-	jsonPath := "./m_1933.json"
+	metas := ReadClusterUsageFromCsv(CLUSTE_USAGE_FILE, -1)
+	jsonPath := "./m_1933_.json"
 	dumpMachineUsage(jsonPath, metas)
-	sort.Slice(metas, func(i, j int) bool {
-		return metas[i].TimeStamp < metas[j].TimeStamp
-	})
+	//sort.Slice(metas, func(i, j int) bool {
+	//	return metas[i].TimeStamp < metas[j].TimeStamp
+	//})
 	p := plot.New()
 	p.Title.Text = "Get Started"
 	p.X.Label.Text = "X"
@@ -57,6 +56,34 @@ func BuildUsageRecords() {
 
 }
 
+func GetAllMachines(FileName string) []string {
+	fd, err := os.Open(FileName)
+	if err != nil {
+		logger.Error("Failed to open file", err)
+		return nil
+	}
+	defer fd.Close()
+	reader := csv.NewReader(fd)
+	machines := make([]string, 0)
+	machines = append(machines, "m_1932")
+	curMachine := "m_1932"
+	for {
+		row, err := reader.Read()
+		if err != nil && err != io.EOF {
+			logger.Error(err)
+			return nil
+		}
+		if err == io.EOF {
+			break
+		}
+		if row[0] != curMachine {
+			curMachine = row[0]
+			machines = append(machines, curMachine)
+		}
+	}
+	return machines
+}
+
 func ReadClusterUsageFromCsv(FileName string, expectLines int) []*ClusterUsage {
 	fd, err := os.Open(FileName)
 	if err != nil {
@@ -67,6 +94,7 @@ func ReadClusterUsageFromCsv(FileName string, expectLines int) []*ClusterUsage {
 	reader := csv.NewReader(fd)
 	// 对大文件进行一行一行的读取
 	recordes := make([]*ClusterUsage, 0)
+	curMachine := "m_1932"
 	for {
 		row, err := reader.Read()
 		line, _ := reader.FieldPos(1)
@@ -88,12 +116,9 @@ func ReadClusterUsageFromCsv(FileName string, expectLines int) []*ClusterUsage {
 		NetIn, _ := strconv.Atoi(row[6])
 		NetOut, _ := strconv.Atoi(row[7])
 		DiskIoPercent, _ := strconv.Atoi(row[8])
-		if row[0] != "m_1932" {
-			break
-		}
 		recordes = append(recordes, &ClusterUsage{
 			MachineId:      row[0],
-			TimeStamp:      int64(timeStamp) - int64(386640),
+			TimeStamp:      int64(timeStamp),
 			CpuUtilPercent: int64(CpuUtilPercent),
 			MemUtilPercent: int64(MemUtilPercent),
 			MemGps:         int64(MemGps),
@@ -102,6 +127,12 @@ func ReadClusterUsageFromCsv(FileName string, expectLines int) []*ClusterUsage {
 			NetOut:         int64(NetOut),
 			DiskIoPercent:  int64(DiskIoPercent),
 		})
+		if row[0] != curMachine {
+			jsonPath := "./" + curMachine + ".json"
+			dumpMachineUsage(jsonPath, recordes)
+			recordes = make([]*ClusterUsage, 0)
+			curMachine = row[0]
+		}
 	}
 	return recordes
 }
