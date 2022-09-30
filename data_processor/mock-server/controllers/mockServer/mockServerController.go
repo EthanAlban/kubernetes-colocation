@@ -53,5 +53,9 @@ func (ms *MockServerController) PublishUsage() {
 			break
 		}
 	}
+	if res == nil {
+		res = metas[0]
+		startTimeStamp = time.Now()
+	}
 	ms.JsonResult(200, "ok", res)
 }
