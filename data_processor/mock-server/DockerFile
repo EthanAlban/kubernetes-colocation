@@ -1,0 +1,20 @@
+#源镜像
+#FROM golang:1.17
+FROM docker-reg.devops.xiaohongshu.com/media/mlsys:base
+#MAINTAINER ZhangLianjun "zhanglianjun@xiaohongshu.com"
+ENV TZ Asia/Shanghai
+
+ENV GOPROXY https://goproxy.cn,direct
+ENV GO111MODULE on
+
+#工作目录作目录
+WORKDIR $GOPATH/src/go-monitor
+ADD go-monitor.tar.gz .
+
+EXPOSE 5000
+
+#CMD ["./run/main.sh"]
+
+
+
+
