@@ -3,6 +3,7 @@ package mock_server_cli
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"github.com/wonderivan/logger"
 	"io/ioutil"
 	v1 "k8s.io/api/core/v1"
@@ -32,14 +33,14 @@ type MockServerResponse struct {
 // StartMockServer 启动动态更新节点用量的server
 func StartMockServer() {
 	client := node_clients.Client
-	nodesInCluster, err := client.InfraV1().Nodes(v1.NamespaceAll).List(context.Background(), metav1.ListOptions{})
-	if err != nil {
-		logger.Fatal(err)
-		return
-	}
 	go func() {
 		for {
 			time.Sleep(10 * time.Second)
+			nodesInCluster, err := client.InfraV1().Nodes(v1.NamespaceAll).List(context.Background(), metav1.ListOptions{})
+			if err != nil {
+				logger.Fatal(err)
+				return
+			}
 			logger.Info("Request for new usage...")
 			for _, node := range nodesInCluster.Items {
 				go func(node v12.Node) {
@@ -57,12 +58,15 @@ func StartMockServer() {
 				}(node)
 			}
 		}
-
 	}()
 }
 
 func GetVirtualNodeTimeStampUsage(nodename string) (*MockServerResponse, error) {
-	url := "mock-server.keep-colocation-mock-server:31880/query?nodename=" + nodename
+	logger.Debug("query for node: " + nodename)
+	if nodename == "" {
+		return nil, errors.New("nodename is empty,please check")
+	}
+	url := "http://mock-server.keep-colocation-mock-server:31880/query?nodename=" + nodename
 	//url := "http://172.17.14.232:30768/query?nodename=" + nodename
 	method := "POST"
 	//  mock-server.keep-colocation-mock-server:31880/query

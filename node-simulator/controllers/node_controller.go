@@ -48,7 +48,6 @@ type NodeReconciler struct {
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.11.0/pkg/reconcile
 func (r *NodeReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	_ = log.FromContext(ctx)
-
 	logger.Info("object", req.NamespacedName)
 	// your logic here
 
@@ -62,14 +61,14 @@ func (r *NodeReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.
 		logger.Info("", "Created", obj.Status.Created)
 	}
 	// 2. Change Created
-	if !obj.Status.Created {
-		obj.Status.Created = true
-		err := r.Status().Update(ctx, obj)
-		if err != nil {
-			logger.Error(err)
-			return ctrl.Result{}, err
-		}
-	}
+	//if !obj.Status.Created {
+	//	obj.Status.Created = true
+	//	err := r.Status().Update(ctx, obj)
+	//	if err != nil {
+	//		logger.Error(err)
+	//		return ctrl.Result{}, err
+	//	}
+	//}
 	//if obj.Status.Created{
 	//	obj.Status.CpuUsage = 80
 	//	obj.Status.MemUsage = 90
