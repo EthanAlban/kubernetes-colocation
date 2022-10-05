@@ -37,6 +37,6 @@ bash "${CODEGEN_PKG}"/generate-groups.sh "all" \
   --output-base "${SCRIPT_ROOT}"
 #  --output-base "${SCRIPT_ROOT}/../../.." \
 
-#$GOPATH/src/k8s.io/code-generator/generate-groups.sh all github.com/UESTC-KEEP/keep/cloud/pkg/client/tenant  github.com/UESTC-KEEP/keep/cloud/pkg/apis/keepedge tenant:v1alpha1
-#$GOPATH/src/k8s.io/code-generator@v0.21.4/generate-groups.sh all ~/Desktop/Projects/keep_colocation/node-simulator/generated/node node-simulator/api Node:v1
+# $GOPATH/src/k8s.io/code-generator/generate-groups.sh all github.com/UESTC-KEEP/keep/cloud/pkg/client/tenant  github.com/UESTC-KEEP/keep/cloud/pkg/apis/keepedge tenant:v1alpha1
+# $GOPATH/src/k8s.io/code-generator/generate-groups.sh all node-simulator/generated/node node-simulator/apis node:v1
 

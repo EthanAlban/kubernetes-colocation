@@ -49,6 +49,7 @@ func StartMockServer() {
 						logger.Error(err)
 						return
 					}
+
 					node.Status.MemUsage = usage.Data.MemUtilPercent
 					node.Status.CpuUsage = usage.Data.CpuUtilPercent
 					_, err = client.InfraV1().Nodes(node.Namespace).UpdateStatus(context.Background(), &node, metav1.UpdateOptions{})
