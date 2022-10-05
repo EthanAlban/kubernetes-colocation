@@ -22,10 +22,11 @@ func init() {
 	machineMap = make(map[string][]*cluster_data.ClusterUsage)
 }
 
+// PublishUsage 按时间戳给虚拟节点更新用量信息
 func (ms *MockServerController) PublishUsage() {
 	nodeName := ms.Ctx.Input.Query("nodename")
 	targetSec := int64(time.Now().Sub(startTimeStamp).Seconds())
-	if _, ok := machineMap[nodeName]; !ok {
+	if _, ok := machineMap[nodeName]; !ok { // 做应用级别的缓存
 		fmt.Println(os.Getwd())
 		jsonPath := "./controllers/mockServer/machines/" + nodeName + ".json"
 
@@ -35,20 +36,15 @@ func (ms *MockServerController) PublishUsage() {
 			return
 		}
 		defer jsonFile.Close()
-
 		var metas []*cluster_data.ClusterUsage
 		decoder := json.NewDecoder(jsonFile)
 		err = decoder.Decode(&metas)
-		//for _, meta := range metas {
-		//	fmt.Println(meta)
-		//}
 		machineMap[nodeName] = metas
 	}
 	var res *cluster_data.ClusterUsage
 	metas := machineMap[nodeName]
 	for _, meta := range metas {
 		if meta.TimeStamp > targetSec {
-			//fmt.Println(meta)
 			res = meta
 			break
 		}

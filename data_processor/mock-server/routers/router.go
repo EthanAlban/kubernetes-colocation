@@ -6,5 +6,5 @@ import (
 )
 
 func init() {
-	beego.Router("test", &mockServer.MockServerController{}, "get:PublishUsage")
+	beego.Router("/query", &mockServer.MockServerController{}, "post:PublishUsage")
 }
