@@ -12,4 +12,8 @@ COPY --from=builder /workspace .
 ENTRYPOINT ["/manager"]
 
 # docker build -f  Dockerfile --platform=linux/amd64  --network=host  -t 172.17.15.242/keep_colocation/node-simulator:latest .
-# docker push 172.17.15.242/keep_colocation/node-simulator:latest
+# docker build -f  Dockerfile --platform=linux/amd64  --network=host  -t keep_colocation/node-simulator:latest .
+
+# docker build -f  Dockerfile --platform=linux/amd64  --network=host  -t registry.cn-hangzhou.aliyuncs.com/keep_colocation/node-simulator:latest .
+# docker push registry.cn-hangzhou.aliyuncs.com/keep_colocation/node-simulator:latest
+# make deploy IMG=registry.cn-hangzhou.aliyuncs.com/keep_colocation/node-simulator

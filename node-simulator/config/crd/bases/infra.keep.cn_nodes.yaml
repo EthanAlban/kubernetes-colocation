@@ -45,6 +45,8 @@ spec:
           status:
             description: NodeStatus defines the observed state of Node
             properties:
+              cpu_capacity:
+                type: integer
               cpu_usage:
                 type: integer
               created:
@@ -52,12 +54,14 @@ spec:
                   of cluster Important: Run "make" to regenerate code after modifying
                   this file'
                 type: boolean
+              disk_capacity:
+                type: integer
+              disk_usage:
+                type: integer
+              mem_capacity:
+                type: integer
               mem_usage:
                 type: integer
-            required:
-            - cpu_usage
-            - created
-            - mem_usage
             type: object
         type: object
     served: true

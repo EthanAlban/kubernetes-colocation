@@ -133,4 +133,5 @@ rm -rf $$TMP_DIR ;\
 }
 endef
 
-# make deploy IMG=172.17.15.242/keep_colocation/node-simulator
+# make deploy IMG=keep_colocation/node-simulator
+# make deploy IMG=registry.cn-hangzhou.aliyuncs.com/keep_colocation/node-simulator

@@ -49,9 +49,10 @@ func StartMockServer() {
 						logger.Error(err)
 						return
 					}
-
 					node.Status.MemUsage = usage.Data.MemUtilPercent
 					node.Status.CpuUsage = usage.Data.CpuUtilPercent
+					node.Status.DiskUsage = usage.Data.DiskIoPercent
+
 					_, err = client.InfraV1().Nodes(node.Namespace).UpdateStatus(context.Background(), &node, metav1.UpdateOptions{})
 					if err != nil {
 						logger.Error(err)
@@ -67,7 +68,8 @@ func GetVirtualNodeTimeStampUsage(nodename string) (*MockServerResponse, error) 
 	if nodename == "" {
 		return nil, errors.New("nodename is empty,please check")
 	}
-	url := "http://mock-server.keep-colocation-mock-server:31880/query?nodename=" + nodename
+	url := "http://10.106.49.175:8080/query?nodename=" + nodename
+	//url := "http:/keep-mock-server.keep-colocation-mock-server:31880/query?nodename=" + nodename
 	//url := "http://172.17.14.232:30768/query?nodename=" + nodename
 	method := "POST"
 	//  mock-server.keep-colocation-mock-server:31880/query

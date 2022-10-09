@@ -1,18 +1,14 @@
 #源镜像
-#FROM golang:1.17
-FROM golang:1.17
+FROM golang:1.17 as builder
 #MAINTAINER ZhangLianjun "zhanglianjun@xiaohongshu.com"
+#工作目录作目录
+RUN go env -w CGO_ENABLED=0
 ENV TZ Asia/Shanghai
-
 ENV GOPROXY https://goproxy.cn,direct
 ENV GO111MODULE on
-
-#工作目录作目录
-WORKDIR $GOPATH/src/mock-server
+WORKDIR /workspace
 ADD mock-server.tar.gz .
-
-EXPOSE 8080
-
+#FROM registry.cn-hangzhou.aliyuncs.com/uestc-keep/distroless-static-nonroot:nonroot
 CMD ["./run/main.sh"]
 
 

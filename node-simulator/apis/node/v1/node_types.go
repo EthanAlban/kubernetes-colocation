@@ -37,10 +37,13 @@ type NodeSpec struct {
 type NodeStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-	Created   bool `json:"created,omitempy"`
-	CpuUsage  int  `json:"cpu_usage,omitempy"`
-	MemUsage  int  `json:"mem_usage,omitempy"`
-	DiskUsage int  `json:"disk_usage,omitempy"`
+	Created      bool `json:"created,omitempty"`
+	CpuCapacity  int  `json:"cpu_capacity,omitempty"`
+	CpuUsage     int  `json:"cpu_usage,omitempty"`
+	MemUsage     int  `json:"mem_usage,omitempty"`
+	MemCapacity  int  `json:"mem_capacity,omitempty"`
+	DiskUsage    int  `json:"disk_usage,omitempty"`
+	DiskCapacity int  `json:"disk_capacity,omitempty"`
 }
 
 // +genclient

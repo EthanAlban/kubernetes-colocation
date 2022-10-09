@@ -6,7 +6,7 @@ cd ..
 
 tag='feat-keep-node-simulator-'$(date '+%Y%m%d%H%M%S')
 echo $tag
-#docker build -f  DockerFile --platform=linux/amd64  --network=host  -t registry.cn-hangzhou.aliyuncs.com/uyistcoj/go-monitor.mlsys.xiaohongshu.com:$tag .
+#docker build -f  Dockerfile --platform=linux/amd64  --network=host  -t registry.cn-hangzhou.aliyuncs.com/uyistcoj/go-monitor.mlsys.xiaohongshu.com:$tag .
 docker build -f  Dockerfile --platform=linux/amd64  --network=host  -t 172.17.15.242/keep_colocation/node-simulator:latest .
 echo 'Build complete.'
 docker push 172.17.15.242/keep_colocation/${IMAGE_NAME}:$tag
