@@ -1,0 +1,6 @@
+apiVersion: infra.keep.cn/v1
+kind: KeepJob
+metadata:
+  name: keepjob-sample
+spec:
+  # TODO(user): Add fields here

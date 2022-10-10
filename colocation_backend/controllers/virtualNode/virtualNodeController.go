@@ -15,7 +15,8 @@ type VirtualNodeController struct {
 
 func (vnc *VirtualNodeController) GetAllVirtualNodes() {
 	nodeClient := client.Client
-	nodes, err := nodeClient.InfraV1().Nodes(v1.NamespaceAll).List(context.TODO(), metav1.ListOptions{})
+	nodeClient.InfraV1()
+	nodes, err := nodeClient.InfraV1().VirtualNodes(v1.NamespaceAll).List(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		logger.Error(err)
 		vnc.JsonResult(500, err.Error(), nil)

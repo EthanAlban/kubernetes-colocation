@@ -1,0 +1,24 @@
+# permissions for end users to edit keepjobs.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: keepjob-editor-role
+rules:
+- apiGroups:
+  - infra.keep.cn
+  resources:
+  - keepjobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - infra.keep.cn
+  resources:
+  - keepjobs/status
+  verbs:
+  - get

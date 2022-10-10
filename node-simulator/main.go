@@ -1,5 +1,5 @@
 /*
-Copyright 2022 ethan.
+Copyright 2022.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,22 +18,24 @@ package main
 
 import (
 	"flag"
-	infrav1 "node-simulator/apis/node/v1"
-	mock_server_cli "node-simulator/controllers/mock-server-cli"
+	mock_server_cli "node-simulator/controllers/infra/mock-server-cli"
 	"os"
-
-	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
-	// to ensure that exec-entrypoint and run can make use of them.
-	_ "k8s.io/client-go/plugin/pkg/client/auth"
 
 	"k8s.io/apimachinery/pkg/runtime"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
+
+	_ "node-simulator/controllers/infra/node-clients"
+
+	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
+	// to ensure that exec-entrypoint and run can make use of them.
+	_ "k8s.io/client-go/plugin/pkg/client/auth"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	"node-simulator/controllers"
+	infrav1 "node-simulator/apis/infra/v1"
+	infracontrollers "node-simulator/controllers/infra"
 	//+kubebuilder:scaffold:imports
 )
 
@@ -72,18 +74,25 @@ func main() {
 		Port:                   9443,
 		HealthProbeBindAddress: probeAddr,
 		LeaderElection:         enableLeaderElection,
-		LeaderElectionID:       "f0eb09f8.keep.cn",
+		LeaderElectionID:       "bb69076a.keep.cn",
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start manager")
 		os.Exit(1)
 	}
 
-	if err = (&controllers.NodeReconciler{
+	if err = (&infracontrollers.VirtualNodeReconciler{
 		Client: mgr.GetClient(),
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "Node")
+		setupLog.Error(err, "unable to create controller", "controller", "VirtualNode")
+		os.Exit(1)
+	}
+	if err = (&infracontrollers.KeepJobReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "KeepJob")
 		os.Exit(1)
 	}
 	//+kubebuilder:scaffold:builder
@@ -96,6 +105,7 @@ func main() {
 		setupLog.Error(err, "unable to set up ready check")
 		os.Exit(1)
 	}
+
 	// ===============================================================================================================
 	// 启动mockserver
 	go mock_server_cli.StartMockServer()

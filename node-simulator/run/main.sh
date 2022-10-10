@@ -3,8 +3,8 @@
 #cd ..
 #echo "start compile"
 #go build main.go
-echo "10.11.176.109 cls-ggyf5dq3.ccs.tencent-cloud.com" >> /etc/hosts
-echo "10.11.40.29 cls-iv3dg0fl.ccs.tencent-cloud.com" >> /etc/hosts
+#echo "10.11.176.109 cls-ggyf5dq3.ccs.tencent-cloud.com" >> /etc/hosts
+#echo "10.11.40.29 cls-iv3dg0fl.ccs.tencent-cloud.com" >> /etc/hosts
 
 echo "start running"
 #./go-monitor --kubeconfig=conf/kubeconfigs/kubeflow-config-cls-iv3dg0fl.yml --qs_env=production

@@ -8,4 +8,4 @@ webhook:
   port: 9443
 leaderElection:
   leaderElect: true
-  resourceName: f0eb09f8.keep.cn
+  resourceName: bb69076a.keep.cn

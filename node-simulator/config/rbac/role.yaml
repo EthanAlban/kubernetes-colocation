@@ -8,7 +8,7 @@ rules:
 - apiGroups:
   - infra.keep.cn
   resources:
-  - nodes
+  - keepjobs
   verbs:
   - create
   - delete
@@ -20,13 +20,39 @@ rules:
 - apiGroups:
   - infra.keep.cn
   resources:
-  - nodes/finalizers
+  - keepjobs/finalizers
   verbs:
   - update
 - apiGroups:
   - infra.keep.cn
   resources:
-  - nodes/status
+  - keepjobs/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - infra.keep.cn
+  resources:
+  - virtualnodes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - infra.keep.cn
+  resources:
+  - virtualnodes/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - infra.keep.cn
+  resources:
+  - virtualnodes/status
   verbs:
   - get
   - patch

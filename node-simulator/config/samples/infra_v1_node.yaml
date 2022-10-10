@@ -1,8 +1,0 @@
-apiVersion: infra.keep.cn/v1
-kind: Node
-metadata:
-  name: m-6
-spec:
-  # TODO(user): Add fields here
-  nodename: m_6
-  detail: "demo nodes.infra.keep.cn m_6"
