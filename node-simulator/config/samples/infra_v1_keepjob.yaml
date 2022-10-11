@@ -4,3 +4,8 @@ metadata:
   name: keepjob-sample
 spec:
   # TODO(user): Add fields here
+  job_name: keep-job-test
+  namespace: default
+  image: nginx
+  replica: 2
+

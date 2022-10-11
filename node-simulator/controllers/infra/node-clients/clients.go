@@ -1,14 +1,17 @@
 package node_clients
 
 import (
+	"github.com/keep-resources/pkg/generated/clientset/versioned"
 	"github.com/wonderivan/logger"
+	"k8s.io/client-go/kubernetes"
+
 	restclient "k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
-	clientset "node-simulator/generated/clientset/versioned"
 )
 
 var Config *restclient.Config
-var Client *clientset.Clientset
+var Client *versioned.Clientset
+var KubeClient *kubernetes.Clientset
 
 func init() {
 	//config, err := clientcmd.BuildConfigFromFlags("", clientcmd.RecommendedHomeFile)
@@ -23,7 +26,8 @@ func init() {
 		}
 	}
 	//logger.Info(Config)
-	Client, err = clientset.NewForConfig(Config)
+	Client, err = versioned.NewForConfig(Config)
+	KubeClient, err = kubernetes.NewForConfig(Config)
 	if err != nil {
 		logger.Error(err)
 		return

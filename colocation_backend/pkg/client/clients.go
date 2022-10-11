@@ -1,7 +1,7 @@
 package node_clients
 
 import (
-	clientset "colocation_backend/generated/clientset/versioned"
+	clientset "github.com/keep-resources/pkg/generated/clientset/versioned"
 	"github.com/wonderivan/logger"
 	restclient "k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"

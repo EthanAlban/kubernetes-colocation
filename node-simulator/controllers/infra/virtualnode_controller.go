@@ -18,10 +18,10 @@ package infra
 
 import (
 	"context"
+	"github.com/keep-resources/pkg/apis/infra/v1"
 	"github.com/wonderivan/logger"
 
 	"k8s.io/apimachinery/pkg/runtime"
-	infrav1 "node-simulator/apis/infra/v1"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
@@ -50,7 +50,7 @@ func (r *VirtualNodeReconciler) Reconcile(ctx context.Context, req ctrl.Request)
 	_ = log.FromContext(ctx)
 
 	// TODO(user): your logic here
-	obj := &infrav1.VirtualNode{}
+	obj := &v1.VirtualNode{}
 	if err := r.Get(ctx, req.NamespacedName, obj); err != nil {
 		logger.Error(err)
 	} else {
@@ -71,6 +71,6 @@ func (r *VirtualNodeReconciler) Reconcile(ctx context.Context, req ctrl.Request)
 // SetupWithManager sets up the controller with the Manager.
 func (r *VirtualNodeReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&infrav1.VirtualNode{}).
+		For(&v1.VirtualNode{}).
 		Complete(r)
 }

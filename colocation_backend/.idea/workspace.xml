@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="966b1201-5611-4256-9979-09ba79a1f58c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../keep-resources/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/go.sum" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/clientset/versioned/clientset.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/clientset/versioned/doc.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/clientset/versioned/fake/clientset_generated.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/clientset/versioned/fake/doc.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/clientset/versioned/fake/register.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/clientset/versioned/scheme/doc.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/clientset/versioned/scheme/register.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/clientset/versioned/typed/infra/v1/doc.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/clientset/versioned/typed/infra/v1/fake/doc.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/clientset/versioned/typed/infra/v1/fake/fake_infra_client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/clientset/versioned/typed/infra/v1/fake/fake_keepjob.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/clientset/versioned/typed/infra/v1/fake/fake_virtualnode.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/clientset/versioned/typed/infra/v1/generated_expansion.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/clientset/versioned/typed/infra/v1/infra_client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/clientset/versioned/typed/infra/v1/keepjob.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/clientset/versioned/typed/infra/v1/virtualnode.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/informers/externalversions/factory.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/informers/externalversions/generic.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/informers/externalversions/infra/interface.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/informers/externalversions/infra/v1/interface.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/informers/externalversions/infra/v1/keepjob.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/informers/externalversions/infra/v1/virtualnode.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/informers/externalversions/internalinterfaces/factory_interfaces.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/listers/infra/v1/expansion_generated.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/listers/infra/v1/keepjob.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../keep-resources/pkg/generated/listers/infra/v1/virtualnode.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../node-simulator/run/comandlines.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/infra/register.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/infra/v1/doc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/infra/v1/groupversion_info.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/infra/v1/keepjob_types.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/infra/v1/register.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/infra/v1/virtualnode_types.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apis/infra/v1/zz_generated.deepcopy.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/colocation_backend" beforeDir="false" afterPath="$PROJECT_DIR$/colocation_backend" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/clientset/versioned/clientset.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/clientset/versioned/doc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/clientset/versioned/fake/clientset_generated.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/clientset/versioned/fake/doc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/clientset/versioned/fake/register.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/clientset/versioned/scheme/doc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/clientset/versioned/scheme/register.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/clientset/versioned/typed/infra/v1/doc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/clientset/versioned/typed/infra/v1/fake/doc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/clientset/versioned/typed/infra/v1/fake/fake_infra_client.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/clientset/versioned/typed/infra/v1/fake/fake_keepjob.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/clientset/versioned/typed/infra/v1/fake/fake_virtualnode.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/clientset/versioned/typed/infra/v1/generated_expansion.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/clientset/versioned/typed/infra/v1/infra_client.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/clientset/versioned/typed/infra/v1/keepjob.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/clientset/versioned/typed/infra/v1/virtualnode.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/informers/externalversions/factory.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/informers/externalversions/generic.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/informers/externalversions/infra/interface.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/informers/externalversions/infra/v1/interface.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/informers/externalversions/infra/v1/keepjob.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/informers/externalversions/infra/v1/virtualnode.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/informers/externalversions/internalinterfaces/factory_interfaces.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/listers/infra/v1/expansion_generated.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/listers/infra/v1/keepjob.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generated/listers/infra/v1/virtualnode.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/client/clients.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/client/clients.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routers/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/routers/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/apis/infra/register.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/apis/infra/v1/doc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/apis/infra/v1/groupversion_info.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/apis/infra/v1/keepjob_types.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/apis/infra/v1/register.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/apis/infra/v1/virtualnode_types.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/apis/infra/v1/zz_generated.deepcopy.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/config/crd/bases/infra.keep.cn_keepjobs.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../node-simulator/config/crd/bases/infra.keep.cn_keepjobs.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/config/samples/infra_v1_keepjob.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../node-simulator/config/samples/infra_v1_keepjob.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/controllers/infra/keepjob_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/../node-simulator/controllers/infra/keepjob_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/controllers/infra/mock-server-cli/mock-cli.go" beforeDir="false" afterPath="$PROJECT_DIR$/../node-simulator/controllers/infra/mock-server-cli/mock-cli.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/controllers/infra/node-clients/clients.go" beforeDir="false" afterPath="$PROJECT_DIR$/../node-simulator/controllers/infra/node-clients/clients.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/controllers/infra/suite_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/../node-simulator/controllers/infra/suite_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/controllers/infra/virtualnode_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/../node-simulator/controllers/infra/virtualnode_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/clientset/versioned/clientset.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/clientset/versioned/doc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/clientset/versioned/fake/clientset_generated.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/clientset/versioned/fake/doc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/clientset/versioned/fake/register.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/clientset/versioned/scheme/doc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/clientset/versioned/scheme/register.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/clientset/versioned/typed/infra/v1/doc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/clientset/versioned/typed/infra/v1/fake/doc.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/clientset/versioned/typed/infra/v1/fake/fake_infra_client.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/clientset/versioned/typed/infra/v1/fake/fake_keepjob.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/clientset/versioned/typed/infra/v1/fake/fake_virtualnode.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/clientset/versioned/typed/infra/v1/generated_expansion.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/clientset/versioned/typed/infra/v1/infra_client.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/clientset/versioned/typed/infra/v1/keepjob.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/clientset/versioned/typed/infra/v1/virtualnode.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/informers/externalversions/factory.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/informers/externalversions/generic.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/informers/externalversions/infra/interface.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/informers/externalversions/infra/v1/interface.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/informers/externalversions/infra/v1/keepjob.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/informers/externalversions/infra/v1/virtualnode.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/informers/externalversions/internalinterfaces/factory_interfaces.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/listers/infra/v1/expansion_generated.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/listers/infra/v1/keepjob.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/generated/listers/infra/v1/virtualnode.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../node-simulator/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../node-simulator/main.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GOROOT" url="file:///usr/local/go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="false" />
+  </component>
+  <component name="ProjectId" id="2FwnkWj4G9JdEePaQjiPe9cNXmp" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="go.formatter.settings.were.checked" value="true" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="go.modules.go.list.on.any.changes.was.set" value="true" />
+    <property name="go.sdk.automatically.set" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../keep-resources" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+  </component>
+</project>

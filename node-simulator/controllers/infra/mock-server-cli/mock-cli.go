@@ -4,12 +4,12 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	v12 "github.com/keep-resources/pkg/apis/infra/v1"
 	"github.com/wonderivan/logger"
 	"io/ioutil"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"net/http"
-	v12 "node-simulator/apis/infra/v1"
 	node_clients "node-simulator/controllers/infra/node-clients"
 	"time"
 )

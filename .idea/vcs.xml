@@ -2,8 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/node-simulator/src/github.com/gogo/protobuf" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/node-simulator/src/github.com/google/gofuzz" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/node-simulator/src/k8s.io/apimachinery" vcs="Git" />
   </component>
 </project>

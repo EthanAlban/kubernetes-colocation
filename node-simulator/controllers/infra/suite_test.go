@@ -17,6 +17,7 @@ limitations under the License.
 package infra
 
 import (
+	"github.com/keep-resources/pkg/apis/infra/v1"
 	"path/filepath"
 	"testing"
 
@@ -29,8 +30,6 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/envtest/printer"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
-
-	infrav1 "node-simulator/apis/infra/v1"
 	//+kubebuilder:scaffold:imports
 )
 
@@ -62,7 +61,7 @@ var _ = BeforeSuite(func() {
 	Expect(err).NotTo(HaveOccurred())
 	Expect(cfg).NotTo(BeNil())
 
-	err = infrav1.AddToScheme(scheme.Scheme)
+	err = v1.AddToScheme(scheme.Scheme)
 	Expect(err).NotTo(HaveOccurred())
 
 	//+kubebuilder:scaffold:scheme

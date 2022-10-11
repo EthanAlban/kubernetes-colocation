@@ -18,6 +18,7 @@ package main
 
 import (
 	"flag"
+	"github.com/keep-resources/pkg/apis/infra/v1"
 	mock_server_cli "node-simulator/controllers/infra/mock-server-cli"
 	"os"
 
@@ -34,7 +35,6 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	infrav1 "node-simulator/apis/infra/v1"
 	infracontrollers "node-simulator/controllers/infra"
 	//+kubebuilder:scaffold:imports
 )
@@ -47,7 +47,7 @@ var (
 func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
-	utilruntime.Must(infrav1.AddToScheme(scheme))
+	utilruntime.Must(v1.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
 
