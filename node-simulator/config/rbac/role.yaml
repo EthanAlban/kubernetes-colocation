@@ -6,6 +6,36 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - deployments/status
+  verbs:
+  - get
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
   - infra.keep.cn
   resources:
   - keepjobs
@@ -27,6 +57,32 @@ rules:
   - infra.keep.cn
   resources:
   - keepjobs/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - infra.keep.cn
+  resources:
+  - keepqueues
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - infra.keep.cn
+  resources:
+  - keepqueues/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - infra.keep.cn
+  resources:
+  - keepqueues/status
   verbs:
   - get
   - patch

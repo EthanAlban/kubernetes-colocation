@@ -1,0 +1,6 @@
+apiVersion: infra.keep.cn/v1
+kind: KeepQueue
+metadata:
+  name: keepqueue-sample
+spec:
+  # TODO(user): Add fields here

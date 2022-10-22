@@ -18,9 +18,11 @@ package main
 
 import (
 	"flag"
-	"github.com/keep-resources/pkg/apis/infra/v1"
-	mock_server_cli "node-simulator/controllers/infra/mock-server-cli"
 	"os"
+
+	v1 "github.com/keep-resources/pkg/apis/infra/v1"
+
+	mock_server_cli "node-simulator/controllers/infra/mock-server-cli"
 
 	"k8s.io/apimachinery/pkg/runtime"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
@@ -35,6 +37,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
+	infrav1 "github.com/keep-resources/pkg/apis/infra/v1"
 	infracontrollers "node-simulator/controllers/infra"
 	//+kubebuilder:scaffold:imports
 )
@@ -48,6 +51,7 @@ func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
 	utilruntime.Must(v1.AddToScheme(scheme))
+	utilruntime.Must(infrav1.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
 
@@ -93,6 +97,13 @@ func main() {
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "KeepJob")
+		os.Exit(1)
+	}
+	if err = (&infracontrollers.KeepQueueReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "KeepQueue")
 		os.Exit(1)
 	}
 	//+kubebuilder:scaffold:builder

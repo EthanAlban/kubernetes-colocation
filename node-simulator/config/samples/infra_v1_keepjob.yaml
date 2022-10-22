@@ -8,4 +8,5 @@ spec:
   namespace: default
   image: nginx
   replica: 2
+  plugins: [ "service" ]
 

@@ -1,0 +1,24 @@
+# permissions for end users to edit keepqueues.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: keepqueue-editor-role
+rules:
+- apiGroups:
+  - infra.keep.cn
+  resources:
+  - keepqueues
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - infra.keep.cn
+  resources:
+  - keepqueues/status
+  verbs:
+  - get

@@ -45,6 +45,10 @@ spec:
                 type: string
               namespace:
                 type: string
+              plugins:
+                items:
+                  type: string
+                type: array
               replica:
                 type: integer
             type: object

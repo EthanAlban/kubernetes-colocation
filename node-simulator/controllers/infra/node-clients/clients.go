@@ -17,7 +17,8 @@ func init() {
 	//config, err := clientcmd.BuildConfigFromFlags("", clientcmd.RecommendedHomeFile)
 	var err error
 	//Config, err = clientcmd.BuildConfigFromFlags("", "cluster_config")
-	Config, err = clientcmd.BuildConfigFromFlags("", "min_config")
+	//Config, err = clientcmd.BuildConfigFromFlags("", "min_config")
+	Config, err = clientcmd.BuildConfigFromFlags("", "actual_config")
 	if err != nil {
 		Config, err = restclient.InClusterConfig()
 		if err != nil {

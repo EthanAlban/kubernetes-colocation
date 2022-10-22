@@ -1,0 +1,7 @@
+apiVersion: infra.keep.cn/v1
+kind: VirtualNode
+metadata:
+  name: virtualnode-m-5
+spec:
+  # TODO(user-: Add fields here
+  nodename: m_5

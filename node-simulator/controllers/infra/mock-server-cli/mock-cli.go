@@ -68,8 +68,8 @@ func GetVirtualNodeTimeStampUsage(nodename string) (*MockServerResponse, error) 
 	if nodename == "" {
 		return nil, errors.New("nodename is empty,please check")
 	}
-	url := "http://10.99.173.228:8080/query?nodename=" + nodename
-	//url := "http:/keep-mock-server.keep-colocation-mock-server:31880/query?nodename=" + nodename
+	//url := "http://10.1.58.121:8080/query?nodename=" + nodename
+	url := "http://keep-mock-server.default.svc.cluster.local:8080/query?nodename=" + nodename
 	//url := "http://172.17.14.232:30768/query?nodename=" + nodename
 	method := "POST"
 	//  mock-server.keep-colocation-mock-server:31880/query

@@ -20,14 +20,17 @@ import (
 	"context"
 	infrav1 "github.com/keep-resources/pkg/apis/infra/v1"
 	"github.com/wonderivan/logger"
-	v12 "k8s.io/api/apps/v1"
-	v1 "k8s.io/api/core/v1"
+	kapps "k8s.io/api/apps/v1"
+	kbatch "k8s.io/api/batch/v1"
+	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	node_clients "node-simulator/controllers/infra/node-clients"
-
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/types"
+	"node-simulator/controllers/infra/keepJobs"
+	node_clients "node-simulator/controllers/infra/node-clients"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 )
 
@@ -40,6 +43,8 @@ type KeepJobReconciler struct {
 //+kubebuilder:rbac:groups=infra.keep.cn,resources=keepjobs,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=infra.keep.cn,resources=keepjobs/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=infra.keep.cn,resources=keepjobs/finalizers,verbs=update
+//+kubebuilder:rbac:groups=apps,resources=deployments,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=batch,resources=jobs,verbs=get;list;watch;create;update;patch;delete
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
@@ -51,46 +56,43 @@ type KeepJobReconciler struct {
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.11.0/pkg/reconcile
 func (r *KeepJobReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+	var keepJob infrav1.KeepJob
 	_ = log.FromContext(ctx)
 	obj := &infrav1.KeepJob{}
+	deployment := &kapps.Deployment{}
+	err := controllerutil.SetControllerReference(&keepJob, deployment, r.Scheme)
+	if err != nil {
+		return ctrl.Result{}, err
+	}
+	// keepjob不存在了 删除对应的job
 	if err := r.Get(ctx, req.NamespacedName, obj); err != nil {
-		logger.Debug("keepjob ", req.NamespacedName, " not found")
-	} else {
-		replicas := int32(obj.Spec.Replica)
-		jobSelector := metav1.LabelSelector{
-			MatchLabels: map[string]string{"app": obj.Spec.JobName},
-		}
-		_, err := node_clients.KubeClient.AppsV1().Deployments(req.Namespace).Create(ctx, &v12.Deployment{
-			ObjectMeta: metav1.ObjectMeta{
-				Name:      obj.Spec.JobName,
-				Namespace: obj.Namespace,
-				Labels:    map[string]string{"app": obj.Spec.JobName},
-			},
-			Spec: v12.DeploymentSpec{
-				Replicas: &replicas,
-				Selector: &jobSelector,
-				Template: v1.PodTemplateSpec{
-					ObjectMeta: metav1.ObjectMeta{
-						Name:      obj.Spec.JobName,
-						Namespace: obj.Spec.Namespace,
-						Labels:    map[string]string{"app": obj.Spec.JobName},
-					},
-					Spec: v1.PodSpec{
-						Containers: []v1.Container{v1.Container{
-							Name:  obj.Spec.JobName + "-" + obj.Spec.Image,
-							Image: obj.Spec.Image,
-						}},
-						RestartPolicy: v1.RestartPolicyAlways,
-					},
-				},
-			},
-		}, metav1.CreateOptions{})
-		if err != nil {
+		// delete keepJob
+		logger.Debug("keepjob ", req.NamespacedName, "not found")
+		foundJob := &kbatch.Job{}
+		if err := r.Get(ctx, types.NamespacedName{Name: req.Name, Namespace: req.Namespace}, foundJob); err == nil {
+			errDel := node_clients.KubeClient.BatchV1().Jobs(foundJob.Namespace).Delete(ctx, foundJob.Name, metav1.DeleteOptions{})
+			if errDel != nil {
+				logger.Error(errDel)
+			}
+		} else {
 			logger.Error(err)
-			return ctrl.Result{}, err
+		}
+		return ctrl.Result{}, client.IgnoreNotFound(err)
+	} else {
+		// 找到了就拉起对应的keepjob的job
+		foundJob := &kbatch.Job{}
+		if err = r.Get(ctx, types.NamespacedName{Name: obj.Spec.JobName, Namespace: obj.Namespace}, foundJob); err != nil && errors.IsNotFound(err) {
+			errCreate := keepJobs.CreateNewJobForKeepJob(obj)
+			logger.Debug("start reconcile new keepjob ", obj.Spec.JobName)
+			if errCreate != nil {
+				logger.Error(errCreate)
+			}
 		}
 	}
-
+	if err != nil {
+		logger.Error(err)
+		return ctrl.Result{}, err
+	}
 	return ctrl.Result{}, nil
 }
 
@@ -98,5 +100,6 @@ func (r *KeepJobReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 func (r *KeepJobReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&infrav1.KeepJob{}).
+		Owns(&kapps.Deployment{}).
 		Complete(r)
 }
