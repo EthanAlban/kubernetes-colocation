@@ -26,6 +26,8 @@ import (
 type Interface interface {
 	// KeepJobs returns a KeepJobInformer.
 	KeepJobs() KeepJobInformer
+	// KeepQueues returns a KeepQueueInformer.
+	KeepQueues() KeepQueueInformer
 	// VirtualNodes returns a VirtualNodeInformer.
 	VirtualNodes() VirtualNodeInformer
 }
@@ -44,6 +46,11 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 // KeepJobs returns a KeepJobInformer.
 func (v *version) KeepJobs() KeepJobInformer {
 	return &keepJobInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// KeepQueues returns a KeepQueueInformer.
+func (v *version) KeepQueues() KeepQueueInformer {
+	return &keepQueueInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // VirtualNodes returns a VirtualNodeInformer.

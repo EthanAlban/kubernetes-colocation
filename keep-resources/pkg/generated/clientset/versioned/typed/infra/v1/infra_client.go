@@ -27,6 +27,7 @@ import (
 type InfraV1Interface interface {
 	RESTClient() rest.Interface
 	KeepJobsGetter
+	KeepQueuesGetter
 	VirtualNodesGetter
 }
 
@@ -37,6 +38,10 @@ type InfraV1Client struct {
 
 func (c *InfraV1Client) KeepJobs(namespace string) KeepJobInterface {
 	return newKeepJobs(c, namespace)
+}
+
+func (c *InfraV1Client) KeepQueues(namespace string) KeepQueueInterface {
+	return newKeepQueues(c, namespace)
 }
 
 func (c *InfraV1Client) VirtualNodes(namespace string) VirtualNodeInterface {

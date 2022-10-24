@@ -55,6 +55,8 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 	// Group=infra.keep.cn, Version=v1
 	case v1.SchemeGroupVersion.WithResource("keepjobs"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Infra().V1().KeepJobs().Informer()}, nil
+	case v1.SchemeGroupVersion.WithResource("keepqueues"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Infra().V1().KeepQueues().Informer()}, nil
 	case v1.SchemeGroupVersion.WithResource("virtualnodes"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Infra().V1().VirtualNodes().Informer()}, nil
 

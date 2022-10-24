@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keep-scheduler
+  namespace: kube-system
+  labels:
+    component: keep-scheduler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: keep-scheduler
+  template:
+    metadata:
+      labels:
+        component: keep-scheduler
+    spec:
+      serviceAccount: keep-sa
+      #      priorityClassName: system-cluster-critical
+      volumes:
+        - name: scheduler-config
+          configMap:
+            name: scheduler-config
+      containers:
+        - name: keep-scheduler
+          image: registry.cn-hangzhou.aliyuncs.com/keep_colocation/keep_scheduler:2.33
+          imagePullPolicy: Always
+          args:
+            - keep-scheduler
+            - --config=/scheduler/scheduler-config.yaml
+            - --v=3
+          resources:
+            requests:
+              cpu: "300m"
+          volumeMounts:
+            - name: scheduler-config
+              mountPath: /scheduler

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test-scheduler-pod
+  labels:
+    name: test-scheduler-pod
+spec:
+  schedulerName: keep-scheduler
+  containers:
+    - name: test-scheduler-pod
+      image: nginx

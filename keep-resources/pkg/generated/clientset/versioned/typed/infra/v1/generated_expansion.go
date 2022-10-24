@@ -20,4 +20,6 @@ package v1
 
 type KeepJobExpansion interface{}
 
+type KeepQueueExpansion interface{}
+
 type VirtualNodeExpansion interface{}
