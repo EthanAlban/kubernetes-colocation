@@ -26,7 +26,9 @@ rules:
       - ""
     resources:
       - pods
+      - events
     verbs:
+      - create
       - delete
       - get
       - list

@@ -29,6 +29,12 @@ func (ks *KeepScheduler) Name() string {
 }
 
 func (ks *KeepScheduler) Filter(ctx context.Context, state *framework.CycleState, pod *v1.Pod, nodeInfo *framework.NodeInfo) *framework.Status {
+	//client := clients.Client
+	//nodesInCluster, err := client.InfraV1().VirtualNodes(v1.NamespaceAll).List(context.Background(), metav1.ListOptions{})
+	//if err != nil {
+	//	logger.Fatal(err)
+	//}
+	//logger.Debug("find virtualNodes:", nodesInCluster)
 	logger.Debug("filter pod: %v, node: %v", pod.Name, nodeInfo.Node().Name)
 	return framework.NewStatus(framework.Success, "")
 }

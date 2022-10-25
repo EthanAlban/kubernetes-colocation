@@ -2,6 +2,7 @@
 # 虚拟机至少2核 2G
 # 后续启动minikube测试环境 执行下面一条命令即可：
 # minikube start  --force --driver=docker --image-mirror-country='cn'   --registry-mirror=https://registry.docker-cn.com  --kubernetes-version=v1.21.0
+# minikube start  --force --container-runtime=containerd --image-mirror-country='cn'   --registry-mirror=https://registry.docker-cn.com  --kubernetes-version=v1.24.0
 echo  "安装kubectl 参考链接：https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/"
 curl -LO https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
@@ -31,7 +32,7 @@ echo "安装docker"
 
 
 echo "配置minikube..."
-minikube start  --force --driver=docker --image-mirror-country='cn'   --registry-mirror=https://registry.docker-cn.com  --kubernetes-version=v1.21.4
+minikube start  --force --driver=docker --image-mirror-country='cn'   --registry-mirror=https://registry.docker-cn.com  --kubernetes-version=v1.24.0
 minikube node add
 minikube addons enable metrics-server
 minikube addons enable dashboard
