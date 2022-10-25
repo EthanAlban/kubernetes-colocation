@@ -1,4 +1,4 @@
-package node_clients
+package clients
 
 import (
 	"github.com/keep-resources/pkg/generated/clientset/versioned"
