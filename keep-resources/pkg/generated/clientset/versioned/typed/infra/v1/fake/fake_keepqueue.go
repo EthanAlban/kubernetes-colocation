@@ -33,7 +33,6 @@ import (
 // FakeKeepQueues implements KeepQueueInterface
 type FakeKeepQueues struct {
 	Fake *FakeInfraV1
-	ns   string
 }
 
 var keepqueuesResource = schema.GroupVersionResource{Group: "infra.keep.cn", Version: "v1", Resource: "keepqueues"}
@@ -43,8 +42,7 @@ var keepqueuesKind = schema.GroupVersionKind{Group: "infra.keep.cn", Version: "v
 // Get takes name of the keepQueue, and returns the corresponding keepQueue object, and an error if there is any.
 func (c *FakeKeepQueues) Get(ctx context.Context, name string, options v1.GetOptions) (result *infrav1.KeepQueue, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewGetAction(keepqueuesResource, c.ns, name), &infrav1.KeepQueue{})
-
+		Invokes(testing.NewRootGetAction(keepqueuesResource, name), &infrav1.KeepQueue{})
 	if obj == nil {
 		return nil, err
 	}
@@ -54,8 +52,7 @@ func (c *FakeKeepQueues) Get(ctx context.Context, name string, options v1.GetOpt
 // List takes label and field selectors, and returns the list of KeepQueues that match those selectors.
 func (c *FakeKeepQueues) List(ctx context.Context, opts v1.ListOptions) (result *infrav1.KeepQueueList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewListAction(keepqueuesResource, keepqueuesKind, c.ns, opts), &infrav1.KeepQueueList{})
-
+		Invokes(testing.NewRootListAction(keepqueuesResource, keepqueuesKind, opts), &infrav1.KeepQueueList{})
 	if obj == nil {
 		return nil, err
 	}
@@ -76,15 +73,13 @@ func (c *FakeKeepQueues) List(ctx context.Context, opts v1.ListOptions) (result 
 // Watch returns a watch.Interface that watches the requested keepQueues.
 func (c *FakeKeepQueues) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
-		InvokesWatch(testing.NewWatchAction(keepqueuesResource, c.ns, opts))
-
+		InvokesWatch(testing.NewRootWatchAction(keepqueuesResource, opts))
 }
 
 // Create takes the representation of a keepQueue and creates it.  Returns the server's representation of the keepQueue, and an error, if there is any.
 func (c *FakeKeepQueues) Create(ctx context.Context, keepQueue *infrav1.KeepQueue, opts v1.CreateOptions) (result *infrav1.KeepQueue, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewCreateAction(keepqueuesResource, c.ns, keepQueue), &infrav1.KeepQueue{})
-
+		Invokes(testing.NewRootCreateAction(keepqueuesResource, keepQueue), &infrav1.KeepQueue{})
 	if obj == nil {
 		return nil, err
 	}
@@ -94,8 +89,7 @@ func (c *FakeKeepQueues) Create(ctx context.Context, keepQueue *infrav1.KeepQueu
 // Update takes the representation of a keepQueue and updates it. Returns the server's representation of the keepQueue, and an error, if there is any.
 func (c *FakeKeepQueues) Update(ctx context.Context, keepQueue *infrav1.KeepQueue, opts v1.UpdateOptions) (result *infrav1.KeepQueue, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateAction(keepqueuesResource, c.ns, keepQueue), &infrav1.KeepQueue{})
-
+		Invokes(testing.NewRootUpdateAction(keepqueuesResource, keepQueue), &infrav1.KeepQueue{})
 	if obj == nil {
 		return nil, err
 	}
@@ -106,8 +100,7 @@ func (c *FakeKeepQueues) Update(ctx context.Context, keepQueue *infrav1.KeepQueu
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
 func (c *FakeKeepQueues) UpdateStatus(ctx context.Context, keepQueue *infrav1.KeepQueue, opts v1.UpdateOptions) (*infrav1.KeepQueue, error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateSubresourceAction(keepqueuesResource, "status", c.ns, keepQueue), &infrav1.KeepQueue{})
-
+		Invokes(testing.NewRootUpdateSubresourceAction(keepqueuesResource, "status", keepQueue), &infrav1.KeepQueue{})
 	if obj == nil {
 		return nil, err
 	}
@@ -117,14 +110,13 @@ func (c *FakeKeepQueues) UpdateStatus(ctx context.Context, keepQueue *infrav1.Ke
 // Delete takes name of the keepQueue and deletes it. Returns an error if one occurs.
 func (c *FakeKeepQueues) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteAction(keepqueuesResource, c.ns, name), &infrav1.KeepQueue{})
-
+		Invokes(testing.NewRootDeleteAction(keepqueuesResource, name), &infrav1.KeepQueue{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
 func (c *FakeKeepQueues) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(keepqueuesResource, c.ns, listOpts)
+	action := testing.NewRootDeleteCollectionAction(keepqueuesResource, listOpts)
 
 	_, err := c.Fake.Invokes(action, &infrav1.KeepQueueList{})
 	return err
@@ -133,8 +125,7 @@ func (c *FakeKeepQueues) DeleteCollection(ctx context.Context, opts v1.DeleteOpt
 // Patch applies the patch and returns the patched keepQueue.
 func (c *FakeKeepQueues) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *infrav1.KeepQueue, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewPatchSubresourceAction(keepqueuesResource, c.ns, name, pt, data, subresources...), &infrav1.KeepQueue{})
-
+		Invokes(testing.NewRootPatchSubresourceAction(keepqueuesResource, name, pt, data, subresources...), &infrav1.KeepQueue{})
 	if obj == nil {
 		return nil, err
 	}

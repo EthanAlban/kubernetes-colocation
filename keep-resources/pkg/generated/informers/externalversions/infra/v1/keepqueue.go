@@ -42,33 +42,32 @@ type KeepQueueInformer interface {
 type keepQueueInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
-	namespace        string
 }
 
 // NewKeepQueueInformer constructs a new informer for KeepQueue type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewKeepQueueInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredKeepQueueInformer(client, namespace, resyncPeriod, indexers, nil)
+func NewKeepQueueInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredKeepQueueInformer(client, resyncPeriod, indexers, nil)
 }
 
 // NewFilteredKeepQueueInformer constructs a new informer for KeepQueue type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredKeepQueueInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredKeepQueueInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.InfraV1().KeepQueues(namespace).List(context.TODO(), options)
+				return client.InfraV1().KeepQueues().List(context.TODO(), options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.InfraV1().KeepQueues(namespace).Watch(context.TODO(), options)
+				return client.InfraV1().KeepQueues().Watch(context.TODO(), options)
 			},
 		},
 		&infrav1.KeepQueue{},
@@ -78,7 +77,7 @@ func NewFilteredKeepQueueInformer(client versioned.Interface, namespace string, 
 }
 
 func (f *keepQueueInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredKeepQueueInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+	return NewFilteredKeepQueueInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
 func (f *keepQueueInformer) Informer() cache.SharedIndexInformer {

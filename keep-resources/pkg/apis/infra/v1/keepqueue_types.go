@@ -45,9 +45,11 @@ type KeepQueueStatus struct {
 	// Important: Run "make" to regenerate code after modifying this file
 }
 
-//+genclient
-//+kubebuilder:object:root=true
-//+kubebuilder:subresource:status
+// +genclient
+// +genclient:nonNamespaced
+// +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:resource:scope=Cluster
 
 // KeepQueue is the Schema for the keepqueues API
 type KeepQueue struct {

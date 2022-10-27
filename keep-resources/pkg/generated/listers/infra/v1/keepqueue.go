@@ -31,8 +31,9 @@ type KeepQueueLister interface {
 	// List lists all KeepQueues in the indexer.
 	// Objects returned here must be treated as read-only.
 	List(selector labels.Selector) (ret []*v1.KeepQueue, err error)
-	// KeepQueues returns an object that can list and get KeepQueues.
-	KeepQueues(namespace string) KeepQueueNamespaceLister
+	// Get retrieves the KeepQueue from the index for a given name.
+	// Objects returned here must be treated as read-only.
+	Get(name string) (*v1.KeepQueue, error)
 	KeepQueueListerExpansion
 }
 
@@ -54,41 +55,9 @@ func (s *keepQueueLister) List(selector labels.Selector) (ret []*v1.KeepQueue, e
 	return ret, err
 }
 
-// KeepQueues returns an object that can list and get KeepQueues.
-func (s *keepQueueLister) KeepQueues(namespace string) KeepQueueNamespaceLister {
-	return keepQueueNamespaceLister{indexer: s.indexer, namespace: namespace}
-}
-
-// KeepQueueNamespaceLister helps list and get KeepQueues.
-// All objects returned here must be treated as read-only.
-type KeepQueueNamespaceLister interface {
-	// List lists all KeepQueues in the indexer for a given namespace.
-	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*v1.KeepQueue, err error)
-	// Get retrieves the KeepQueue from the indexer for a given namespace and name.
-	// Objects returned here must be treated as read-only.
-	Get(name string) (*v1.KeepQueue, error)
-	KeepQueueNamespaceListerExpansion
-}
-
-// keepQueueNamespaceLister implements the KeepQueueNamespaceLister
-// interface.
-type keepQueueNamespaceLister struct {
-	indexer   cache.Indexer
-	namespace string
-}
-
-// List lists all KeepQueues in the indexer for a given namespace.
-func (s keepQueueNamespaceLister) List(selector labels.Selector) (ret []*v1.KeepQueue, err error) {
-	err = cache.ListAllByNamespace(s.indexer, s.namespace, selector, func(m interface{}) {
-		ret = append(ret, m.(*v1.KeepQueue))
-	})
-	return ret, err
-}
-
-// Get retrieves the KeepQueue from the indexer for a given namespace and name.
-func (s keepQueueNamespaceLister) Get(name string) (*v1.KeepQueue, error) {
-	obj, exists, err := s.indexer.GetByKey(s.namespace + "/" + name)
+// Get retrieves the KeepQueue from the index for a given name.
+func (s *keepQueueLister) Get(name string) (*v1.KeepQueue, error) {
+	obj, exists, err := s.indexer.GetByKey(name)
 	if err != nil {
 		return nil, err
 	}

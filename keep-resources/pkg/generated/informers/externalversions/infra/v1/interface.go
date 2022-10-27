@@ -50,7 +50,7 @@ func (v *version) KeepJobs() KeepJobInformer {
 
 // KeepQueues returns a KeepQueueInformer.
 func (v *version) KeepQueues() KeepQueueInformer {
-	return &keepQueueInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+	return &keepQueueInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }
 
 // VirtualNodes returns a VirtualNodeInformer.

@@ -32,8 +32,8 @@ func (c *FakeInfraV1) KeepJobs(namespace string) v1.KeepJobInterface {
 	return &FakeKeepJobs{c, namespace}
 }
 
-func (c *FakeInfraV1) KeepQueues(namespace string) v1.KeepQueueInterface {
-	return &FakeKeepQueues{c, namespace}
+func (c *FakeInfraV1) KeepQueues() v1.KeepQueueInterface {
+	return &FakeKeepQueues{c}
 }
 
 func (c *FakeInfraV1) VirtualNodes(namespace string) v1.VirtualNodeInterface {

@@ -33,7 +33,7 @@ import (
 // KeepQueuesGetter has a method to return a KeepQueueInterface.
 // A group's client should implement this interface.
 type KeepQueuesGetter interface {
-	KeepQueues(namespace string) KeepQueueInterface
+	KeepQueues() KeepQueueInterface
 }
 
 // KeepQueueInterface has methods to work with KeepQueue resources.
@@ -53,14 +53,12 @@ type KeepQueueInterface interface {
 // keepQueues implements KeepQueueInterface
 type keepQueues struct {
 	client rest.Interface
-	ns     string
 }
 
 // newKeepQueues returns a KeepQueues
-func newKeepQueues(c *InfraV1Client, namespace string) *keepQueues {
+func newKeepQueues(c *InfraV1Client) *keepQueues {
 	return &keepQueues{
 		client: c.RESTClient(),
-		ns:     namespace,
 	}
 }
 
@@ -68,7 +66,6 @@ func newKeepQueues(c *InfraV1Client, namespace string) *keepQueues {
 func (c *keepQueues) Get(ctx context.Context, name string, options metav1.GetOptions) (result *v1.KeepQueue, err error) {
 	result = &v1.KeepQueue{}
 	err = c.client.Get().
-		Namespace(c.ns).
 		Resource("keepqueues").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
@@ -85,7 +82,6 @@ func (c *keepQueues) List(ctx context.Context, opts metav1.ListOptions) (result 
 	}
 	result = &v1.KeepQueueList{}
 	err = c.client.Get().
-		Namespace(c.ns).
 		Resource("keepqueues").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -102,7 +98,6 @@ func (c *keepQueues) Watch(ctx context.Context, opts metav1.ListOptions) (watch.
 	}
 	opts.Watch = true
 	return c.client.Get().
-		Namespace(c.ns).
 		Resource("keepqueues").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -113,7 +108,6 @@ func (c *keepQueues) Watch(ctx context.Context, opts metav1.ListOptions) (watch.
 func (c *keepQueues) Create(ctx context.Context, keepQueue *v1.KeepQueue, opts metav1.CreateOptions) (result *v1.KeepQueue, err error) {
 	result = &v1.KeepQueue{}
 	err = c.client.Post().
-		Namespace(c.ns).
 		Resource("keepqueues").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(keepQueue).
@@ -126,7 +120,6 @@ func (c *keepQueues) Create(ctx context.Context, keepQueue *v1.KeepQueue, opts m
 func (c *keepQueues) Update(ctx context.Context, keepQueue *v1.KeepQueue, opts metav1.UpdateOptions) (result *v1.KeepQueue, err error) {
 	result = &v1.KeepQueue{}
 	err = c.client.Put().
-		Namespace(c.ns).
 		Resource("keepqueues").
 		Name(keepQueue.Name).
 		VersionedParams(&opts, scheme.ParameterCodec).
@@ -141,7 +134,6 @@ func (c *keepQueues) Update(ctx context.Context, keepQueue *v1.KeepQueue, opts m
 func (c *keepQueues) UpdateStatus(ctx context.Context, keepQueue *v1.KeepQueue, opts metav1.UpdateOptions) (result *v1.KeepQueue, err error) {
 	result = &v1.KeepQueue{}
 	err = c.client.Put().
-		Namespace(c.ns).
 		Resource("keepqueues").
 		Name(keepQueue.Name).
 		SubResource("status").
@@ -155,7 +147,6 @@ func (c *keepQueues) UpdateStatus(ctx context.Context, keepQueue *v1.KeepQueue, 
 // Delete takes name of the keepQueue and deletes it. Returns an error if one occurs.
 func (c *keepQueues) Delete(ctx context.Context, name string, opts metav1.DeleteOptions) error {
 	return c.client.Delete().
-		Namespace(c.ns).
 		Resource("keepqueues").
 		Name(name).
 		Body(&opts).
@@ -170,7 +161,6 @@ func (c *keepQueues) DeleteCollection(ctx context.Context, opts metav1.DeleteOpt
 		timeout = time.Duration(*listOpts.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
-		Namespace(c.ns).
 		Resource("keepqueues").
 		VersionedParams(&listOpts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -183,7 +173,6 @@ func (c *keepQueues) DeleteCollection(ctx context.Context, opts metav1.DeleteOpt
 func (c *keepQueues) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts metav1.PatchOptions, subresources ...string) (result *v1.KeepQueue, err error) {
 	result = &v1.KeepQueue{}
 	err = c.client.Patch(pt).
-		Namespace(c.ns).
 		Resource("keepqueues").
 		Name(name).
 		SubResource(subresources...).

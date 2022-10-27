@@ -40,8 +40,8 @@ func (c *InfraV1Client) KeepJobs(namespace string) KeepJobInterface {
 	return newKeepJobs(c, namespace)
 }
 
-func (c *InfraV1Client) KeepQueues(namespace string) KeepQueueInterface {
-	return newKeepQueues(c, namespace)
+func (c *InfraV1Client) KeepQueues() KeepQueueInterface {
+	return newKeepQueues(c)
 }
 
 func (c *InfraV1Client) VirtualNodes(namespace string) VirtualNodeInterface {

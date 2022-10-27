@@ -4,6 +4,6 @@ metadata:
   name: keepqueue-default
 spec:
   # TODO(user): Add fields here
-  queueName: KeepTestQueue
+  queueName: keepqueue-default
   weight: 1
   reclaimable: false

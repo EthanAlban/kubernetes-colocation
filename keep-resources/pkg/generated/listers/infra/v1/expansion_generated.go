@@ -30,10 +30,6 @@ type KeepJobNamespaceListerExpansion interface{}
 // KeepQueueLister.
 type KeepQueueListerExpansion interface{}
 
-// KeepQueueNamespaceListerExpansion allows custom methods to be added to
-// KeepQueueNamespaceLister.
-type KeepQueueNamespaceListerExpansion interface{}
-
 // VirtualNodeListerExpansion allows custom methods to be added to
 // VirtualNodeLister.
 type VirtualNodeListerExpansion interface{}

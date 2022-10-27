@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package infra
+package keepJobs
 
 import (
 	"context"
@@ -22,16 +22,14 @@ import (
 	"github.com/wonderivan/logger"
 	kapps "k8s.io/api/apps/v1"
 	kbatch "k8s.io/api/batch/v1"
-	"k8s.io/apimachinery/pkg/api/errors"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	v12 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
-	"node-simulator/controllers/infra/keepJobs"
-	node_clients "node-simulator/controllers/infra/node-clients"
+	KeepClients "node-simulator/controllers/infra/node-clients"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 	"sigs.k8s.io/controller-runtime/pkg/log"
+	"time"
 )
 
 // KeepJobReconciler reconciles a KeepJob object
@@ -55,45 +53,49 @@ type KeepJobReconciler struct {
 //
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.11.0/pkg/reconcile
-func (r *KeepJobReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	var keepJob infrav1.KeepJob
+func (kjr *KeepJobReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+	_ = context.Background()
 	_ = log.FromContext(ctx)
+	var err error
+	logger.Debug("start new round keepjob reconcile")
 	obj := &infrav1.KeepJob{}
-	deployment := &kapps.Deployment{}
-	err := controllerutil.SetControllerReference(&keepJob, deployment, r.Scheme)
-	if err != nil {
-		return ctrl.Result{}, err
-	}
 	// keepjob不存在了 删除对应的job
-	if err := r.Get(ctx, req.NamespacedName, obj); err != nil {
+	if err := kjr.Get(ctx, req.NamespacedName, obj); err != nil {
 		// delete keepJob
-		logger.Debug("keepjob ", req.NamespacedName, "not found")
+		labelKey, labelVal, err := GenerateUniqueJobLable(obj)
+		logger.Debug("keepjob ", req.NamespacedName, "not found,start to delete jobs with label: "+labelKey+":"+labelVal)
 		foundJob := &kbatch.Job{}
-		if err := r.Get(ctx, types.NamespacedName{Name: req.Name, Namespace: req.Namespace}, foundJob); err == nil {
-			errDel := node_clients.KubeClient.BatchV1().Jobs(foundJob.Namespace).Delete(ctx, foundJob.Name, metav1.DeleteOptions{})
+		if err := kjr.Get(ctx, types.NamespacedName{Name: req.Name, Namespace: req.Namespace}, foundJob); err == nil {
+			if err != nil {
+				logger.Error(err)
+				return ctrl.Result{RequeueAfter: 5 * time.Second}, err
+			}
+			errDel := kjr.DeleteJobWithLabel(map[string]string{labelKey: labelVal})
 			if errDel != nil {
 				logger.Error(errDel)
 			}
 		} else {
-			logger.Error(err)
+			logger.Error("could not find job:", req.NamespacedName, err)
 		}
-		return ctrl.Result{}, client.IgnoreNotFound(err)
+		return ctrl.Result{}, err
 	} else {
-		// 找到了就拉起对应的keepjob的job
-		foundJob := &kbatch.Job{}
-		if err = r.Get(ctx, types.NamespacedName{Name: obj.Spec.JobName, Namespace: obj.Namespace}, foundJob); err != nil && errors.IsNotFound(err) {
-			errCreate := keepJobs.CreateNewJobForKeepJob(obj)
-			logger.Debug("start reconcile new keepjob ", obj.Spec.JobName)
-			if errCreate != nil {
-				logger.Error(errCreate)
+		// 找到了就将任务放到声明的queue里边
+		//先找到对应的queue，如果没有就算了
+		//KeepClients.Client.InfraV1().
+		if queue, err := KeepClients.Client.InfraV1().KeepQueues().Get(context.TODO(), obj.Spec.JobQueueName, v12.GetOptions{}); err != nil {
+			logger.Warn("job declared keepQueue:", obj.Spec.JobQueueName, " but not found,", err)
+			return ctrl.Result{RequeueAfter: 5 * time.Second}, err
+		} else {
+			// 找到了对应的queue就将keepjob加入改queue
+			queue.Spec.OwnJobs = append(queue.Spec.OwnJobs, *obj)
+			_, err = KeepClients.Client.InfraV1().KeepQueues().Update(context.TODO(), queue, v12.UpdateOptions{})
+			if err != nil {
+				logger.Error(err)
+				return ctrl.Result{}, err
 			}
 		}
 	}
-	if err != nil {
-		logger.Error(err)
-		return ctrl.Result{}, err
-	}
-	return ctrl.Result{}, nil
+	return ctrl.Result{}, err
 }
 
 // SetupWithManager sets up the controller with the Manager.

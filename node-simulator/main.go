@@ -18,11 +18,10 @@ package main
 
 import (
 	"flag"
+	"node-simulator/controllers/infra/keepJobs"
 	"os"
 
 	v1 "github.com/keep-resources/pkg/apis/infra/v1"
-
-	mock_server_cli "node-simulator/controllers/infra/mock-server-cli"
 
 	"k8s.io/apimachinery/pkg/runtime"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
@@ -92,7 +91,7 @@ func main() {
 		setupLog.Error(err, "unable to create controller", "controller", "VirtualNode")
 		os.Exit(1)
 	}
-	if err = (&infracontrollers.KeepJobReconciler{
+	if err = (&keepJobs.KeepJobReconciler{
 		Client: mgr.GetClient(),
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
@@ -119,7 +118,7 @@ func main() {
 
 	// ===============================================================================================================
 	// 启动mockserver
-	go mock_server_cli.StartMockServer()
+	//go mock_server_cli.StartMockServer()
 	// ===============================================================================================================
 
 	setupLog.Info("starting manager")

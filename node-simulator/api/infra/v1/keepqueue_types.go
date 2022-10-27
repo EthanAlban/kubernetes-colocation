@@ -48,6 +48,7 @@ type KeepQueueStatus struct {
 //+genclient
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
+//+kubebuilder:resource:scope=Cluster
 
 // KeepQueue is the Schema for the keepqueues API
 type KeepQueue struct {
