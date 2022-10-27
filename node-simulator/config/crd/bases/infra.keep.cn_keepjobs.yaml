@@ -41,6 +41,8 @@ spec:
                 description: 'INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
                   Important: Run "make" to regenerate code after modifying this file'
                 type: string
+              job_queue_name:
+                type: string
               job_type:
                 type: string
               namespace:

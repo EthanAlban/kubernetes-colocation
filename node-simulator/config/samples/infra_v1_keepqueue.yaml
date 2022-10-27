@@ -1,6 +1,9 @@
 apiVersion: infra.keep.cn/v1
 kind: KeepQueue
 metadata:
-  name: keepqueue-sample
+  name: keepqueue-default
 spec:
   # TODO(user): Add fields here
+  queueName: KeepTestQueue
+  weight: 1
+  reclaimable: false

@@ -6,11 +6,13 @@ import (
 	infrav1 "github.com/keep-resources/pkg/apis/infra/v1"
 	"github.com/wonderivan/logger"
 	v1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/kubernetes/pkg/scheduler/framework"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/cache"
 	client2 "sigs.k8s.io/controller-runtime/pkg/client"
+	clients "sigs.k8s.io/scheduler-plugins/pkg/client"
 )
 
 const Name = "keep"
@@ -43,12 +45,13 @@ func (ks *KeepScheduler) Filter(ctx context.Context, state *framework.CycleState
 		return framework.NewStatus(framework.Unschedulable, "can't get the virtualNodes from cache")
 	}
 	logger.Debug(virtualNodeList)
-	//client := clients.Client
-	//nodesInCluster, err := client.InfraV1().VirtualNodes(v1.NamespaceAll).List(context.Background(), metav1.ListOptions{})
-	//if err != nil {
-	//	logger.Fatal(err)
-	//}
-	//logger.Debug("find virtualNodes:", nodesInCluster)
+	client := clients.Client
+	nodesInCluster, err := client.InfraV1().VirtualNodes(v1.NamespaceAll).List(context.Background(), metav1.ListOptions{})
+
+	if err != nil {
+		logger.Fatal(err)
+	}
+	logger.Debug("find virtualNodes:", nodesInCluster)
 	return framework.NewStatus(framework.Success, "")
 }
 

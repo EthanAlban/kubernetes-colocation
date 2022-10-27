@@ -32,7 +32,11 @@ type KeepQueueSpec struct {
 	Foo       string `json:"foo,omitempty"`
 	QueueName string `json:"queueName,omitempty"`
 	// 监管的任务的 namespace/jobName
-	OwnJobs []string `json:"ownJobs,omitempty"`
+	OwnJobs []KeepJob `json:"ownJobs,omitempty"`
+	// 运行在本队列中的任务是否可以在资源不足时被抢占
+	Reclaimable bool `json:"reclaimable,omitempty"`
+	// 运行在本队列中的任务所使用的时间片的比重，比重越大其使用资源的代价越大
+	Weight int `json:"weight,omitempty"`
 }
 
 // KeepQueueStatus defines the observed state of KeepQueue

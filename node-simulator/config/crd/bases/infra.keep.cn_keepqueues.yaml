@@ -42,10 +42,58 @@ spec:
               ownJobs:
                 description: 监管的任务的 namespace/jobName
                 items:
-                  type: string
+                  description: KeepJob is the Schema for the keepjobs API
+                  properties:
+                    apiVersion:
+                      description: 'APIVersion defines the versioned schema of this
+                        representation of an object. Servers should convert recognized
+                        schemas to the latest internal value, and may reject unrecognized
+                        values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+                      type: string
+                    kind:
+                      description: 'Kind is a string value representing the REST resource
+                        this object represents. Servers may infer this from the endpoint
+                        the client submits requests to. Cannot be updated. In CamelCase.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                      type: string
+                    metadata:
+                      type: object
+                    spec:
+                      description: KeepJobSpec defines the desired state of KeepJob
+                      properties:
+                        image:
+                          type: string
+                        job_name:
+                          description: 'INSERT ADDITIONAL SPEC FIELDS - desired state
+                            of cluster Important: Run "make" to regenerate code after
+                            modifying this file'
+                          type: string
+                        job_queue_name:
+                          type: string
+                        job_type:
+                          type: string
+                        namespace:
+                          type: string
+                        plugins:
+                          items:
+                            type: string
+                          type: array
+                        replica:
+                          type: integer
+                      type: object
+                    status:
+                      description: KeepJobStatus defines the observed state of KeepJob
+                      type: object
+                  type: object
                 type: array
               queueName:
                 type: string
+              reclaimable:
+                description: 运行在本队列中的任务是否可以在资源不足时被抢占
+                type: boolean
+              weight:
+                description: 运行在本队列中的任务所使用的时间片的比重，比重越大其使用资源的代价越大
+                type: integer
             type: object
           status:
             description: KeepQueueStatus defines the observed state of KeepQueue
