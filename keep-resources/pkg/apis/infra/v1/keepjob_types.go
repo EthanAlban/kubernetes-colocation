@@ -27,13 +27,15 @@ import (
 type KeepJobSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-	JobName      string   `json:"job_name,omitempty"`
-	Namespace    string   `json:"namespace,omitempty"`
-	Image        string   `json:"image,omitempty"`
-	JobType      string   `json:"job_type,omitempty"`
-	Replica      int      `json:"replica,omitempty"`
-	Plugins      []string `json:"plugins,omitempty"`
-	JobQueueName string   `json:"job_queue_name,omitempty"`
+	JobName      string      `json:"job_name,omitempty"`
+	Namespace    string      `json:"namespace,omitempty"`
+	Image        string      `json:"image,omitempty"`
+	JobType      string      `json:"job_type,omitempty"`
+	Replica      int         `json:"replica,omitempty"`
+	Weight       int         `json:"weight,omitempty"`
+	Plugins      []string    `json:"plugins,omitempty"`
+	JobQueueName string      `json:"job_queue_name,omitempty"`
+	CreatingTime metav1.Time `json:"creating_time,omitempty"`
 }
 
 // KeepJobStatus defines the observed state of KeepJob

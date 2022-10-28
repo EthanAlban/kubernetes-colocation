@@ -35,6 +35,9 @@ spec:
           spec:
             description: KeepJobSpec defines the desired state of KeepJob
             properties:
+              creating_time:
+                format: date-time
+                type: string
               image:
                 type: string
               job_name:
@@ -52,6 +55,8 @@ spec:
                   type: string
                 type: array
               replica:
+                type: integer
+              weight:
                 type: integer
             type: object
           status:

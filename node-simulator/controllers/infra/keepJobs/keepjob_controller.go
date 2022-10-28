@@ -22,7 +22,7 @@ import (
 	"github.com/wonderivan/logger"
 	kapps "k8s.io/api/apps/v1"
 	kbatch "k8s.io/api/batch/v1"
-	v12 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
 	KeepClients "node-simulator/controllers/infra/node-clients"
@@ -79,16 +79,23 @@ func (kjr *KeepJobReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 		}
 		return ctrl.Result{}, err
 	} else {
+		logger.Debug("set default values for this job")
+		err = kjr.SetKeepJobDefaultValues(obj)
+		if err != nil {
+			logger.Error(err)
+			return ctrl.Result{RequeueAfter: 5 * time.Second}, err
+		}
 		// 找到了就将任务放到声明的queue里边
 		//先找到对应的queue，如果没有就算了
 		//KeepClients.Client.InfraV1().
-		if queue, err := KeepClients.Client.InfraV1().KeepQueues().Get(context.TODO(), obj.Spec.JobQueueName, v12.GetOptions{}); err != nil {
+		if queue, err := KeepClients.Client.InfraV1().KeepQueues().Get(context.TODO(), obj.Spec.JobQueueName, metav1.GetOptions{}); err != nil {
 			logger.Warn("job declared keepQueue:", obj.Spec.JobQueueName, " but not found,", err)
 			return ctrl.Result{RequeueAfter: 5 * time.Second}, err
 		} else {
 			// 找到了对应的queue就将keepjob加入改queue
 			queue.Spec.OwnJobs = append(queue.Spec.OwnJobs, *obj)
-			_, err = KeepClients.Client.InfraV1().KeepQueues().Update(context.TODO(), queue, v12.UpdateOptions{})
+			_, err = KeepClients.Client.InfraV1().KeepQueues().Update(context.TODO(), queue, metav1.UpdateOptions{})
+			logger.Debug("job:", req.NamespacedName, ",joined queue:", queue.Name)
 			if err != nil {
 				logger.Error(err)
 				return ctrl.Result{}, err
