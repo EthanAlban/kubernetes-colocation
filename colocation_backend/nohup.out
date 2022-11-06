@@ -20,3 +20,25 @@ colocation_backend/routers/virtualNode
 2022/10/12 16:29:47 [34m[1mINFO    [0m[0m ▶ 0005 Restarting 'colocation_backend'...
 2022/10/12 16:29:47 [32m[1mSUCCESS [0m[0m ▶ 0006 './colocation_backend' is running...
 2022/10/12 16:29:47.257 [1;34m[I][0m [asm_amd64.s:1581]  http server Running on http://0.0.0.0:9000
+2022/11/02 20:43:58 [34m[1mINFO    [0m[0m ▶ 0001 Getting bee latest version...
+2022/11/02 20:43:58 [34m[1mINFO    [0m[0m ▶ 0002 Your bee are up to date
+[35m[1m______
+| ___ \
+| |_/ /  ___   ___
+| ___ \ / _ \ / _ \
+| |_/ /|  __/|  __/
+\____/  \___| \___| v2.0.4
+[0m[0m2022/11/02 20:43:58 [33m[1mWARN    [0m[0m ▶ 0003 Running application outside of GOPATH
+2022/11/02 20:43:58 [34m[1mINFO    [0m[0m ▶ 0004 Using 'colocation_backend' as 'appname'
+2022/11/02 20:43:58 [34m[1mINFO    [0m[0m ▶ 0005 Initializing watcher...
+github.com/keep-resources/pkg/generated/clientset/versioned/typed/infra/v1
+github.com/keep-resources/pkg/generated/clientset/versioned
+colocation_backend/pkg/client
+colocation_backend/controllers/keepJob
+colocation_backend/controllers/virtualNode
+colocation_backend/routers/keepJob
+colocation_backend/routers/virtualNode
+2022/11/02 20:44:15 [32m[1mSUCCESS [0m[0m ▶ 0006 Built Successfully!
+2022/11/02 20:44:15 [34m[1mINFO    [0m[0m ▶ 0007 Restarting 'colocation_backend'...
+2022/11/02 20:44:15 [32m[1mSUCCESS [0m[0m ▶ 0008 './colocation_backend' is running...
+2022/11/02 20:44:15.577 [1;34m[I][0m [asm_amd64.s:1581]  http server Running on http://0.0.0.0:9000

@@ -17,6 +17,9 @@ func (kjr *KeepJobReconciler) SetKeepJobDefaultValues(obj *infrav1.KeepJob) erro
 	if obj.Spec.Weight == 0 {
 		obj.Spec.Weight = 1
 	}
+	if obj.Spec.Priority == 0 {
+		obj.Spec.Priority = 1
+	}
 	err = kjr.Update(context.TODO(), obj)
 	if err != nil {
 		return errors.New("set default values for job:" + obj.Namespace + "/" + obj.Spec.JobName + " failed:" + err.Error())

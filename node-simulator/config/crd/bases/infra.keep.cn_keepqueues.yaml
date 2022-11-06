@@ -66,6 +66,8 @@ spec:
                           type: string
                         image:
                           type: string
+                        in_queue:
+                          type: boolean
                         job_name:
                           description: 'INSERT ADDITIONAL SPEC FIELDS - desired state
                             of cluster Important: Run "make" to regenerate code after
@@ -81,6 +83,8 @@ spec:
                           items:
                             type: string
                           type: array
+                        priority:
+                          type: integer
                         replica:
                           type: integer
                         weight:

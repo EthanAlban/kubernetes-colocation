@@ -13,7 +13,7 @@ var Config *restclient.Config
 var Client *versioned.Clientset
 var KubeClient *kubernetes.Clientset
 
-func init() {
+func InitClusterConfig() {
 	//config, err := clientcmd.BuildConfigFromFlags("", clientcmd.RecommendedHomeFile)
 	var err error
 	//Config, err = clientcmd.BuildConfigFromFlags("", "cluster_config")

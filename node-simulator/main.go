@@ -19,6 +19,8 @@ package main
 import (
 	"flag"
 	"node-simulator/controllers/infra/keepJobs"
+	"node-simulator/controllers/infra/keepQueues"
+	node_clients "node-simulator/controllers/infra/node-clients"
 	"os"
 
 	v1 "github.com/keep-resources/pkg/apis/infra/v1"
@@ -98,7 +100,7 @@ func main() {
 		setupLog.Error(err, "unable to create controller", "controller", "KeepJob")
 		os.Exit(1)
 	}
-	if err = (&infracontrollers.KeepQueueReconciler{
+	if err = (&keepQueues.KeepQueueReconciler{
 		Client: mgr.GetClient(),
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
@@ -117,6 +119,7 @@ func main() {
 	}
 
 	// ===============================================================================================================
+	node_clients.InitClusterConfig()
 	// 启动mockserver
 	//go mock_server_cli.StartMockServer()
 	// ===============================================================================================================

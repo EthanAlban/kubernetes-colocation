@@ -33,9 +33,15 @@ type KeepJobSpec struct {
 	JobType      string      `json:"job_type,omitempty"`
 	Replica      int         `json:"replica,omitempty"`
 	Weight       int         `json:"weight,omitempty"`
+	Priority     int         `json:"priority,omitempty"`
 	Plugins      []string    `json:"plugins,omitempty"`
 	JobQueueName string      `json:"job_queue_name,omitempty"`
+	InQueue      bool        `json:"in_queue,omitempty"`
 	CreatingTime metav1.Time `json:"creating_time,omitempty"`
+}
+
+type ResourceRequests struct {
+	Memory int `json:"memory,omitempty"` //
 }
 
 // KeepJobStatus defines the observed state of KeepJob

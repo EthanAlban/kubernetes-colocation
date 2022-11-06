@@ -29,7 +29,6 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
-	"time"
 )
 
 // KeepJobReconciler reconciles a KeepJob object
@@ -68,7 +67,7 @@ func (kjr *KeepJobReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 		if err := kjr.Get(ctx, types.NamespacedName{Name: req.Name, Namespace: req.Namespace}, foundJob); err == nil {
 			if err != nil {
 				logger.Error(err)
-				return ctrl.Result{RequeueAfter: 5 * time.Second}, err
+				return ctrl.Result{RequeueAfter: DefautRequeueDurationSecond}, err
 			}
 			errDel := kjr.DeleteJobWithLabel(map[string]string{labelKey: labelVal})
 			if errDel != nil {
@@ -83,15 +82,15 @@ func (kjr *KeepJobReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 		err = kjr.SetKeepJobDefaultValues(obj)
 		if err != nil {
 			logger.Error(err)
-			return ctrl.Result{RequeueAfter: 5 * time.Second}, err
+			return ctrl.Result{RequeueAfter: DefautRequeueDurationSecond}, err
 		}
 		// 找到了就将任务放到声明的queue里边
 		//先找到对应的queue，如果没有就算了
 		//KeepClients.Client.InfraV1().
 		if queue, err := KeepClients.Client.InfraV1().KeepQueues().Get(context.TODO(), obj.Spec.JobQueueName, metav1.GetOptions{}); err != nil {
 			logger.Warn("job declared keepQueue:", obj.Spec.JobQueueName, " but not found,", err)
-			return ctrl.Result{RequeueAfter: 5 * time.Second}, err
-		} else {
+			return ctrl.Result{RequeueAfter: DefautRequeueDurationSecond}, err
+		} else if !obj.Spec.InQueue {
 			// 找到了对应的queue就将keepjob加入改queue
 			queue.Spec.OwnJobs = append(queue.Spec.OwnJobs, *obj)
 			_, err = KeepClients.Client.InfraV1().KeepQueues().Update(context.TODO(), queue, metav1.UpdateOptions{})
@@ -99,6 +98,11 @@ func (kjr *KeepJobReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 			if err != nil {
 				logger.Error(err)
 				return ctrl.Result{}, err
+			}
+			obj.Spec.InQueue = true
+			err = kjr.Update(context.TODO(), obj, &client.UpdateOptions{})
+			if err != nil {
+				logger.Error(err)
 			}
 		}
 	}
