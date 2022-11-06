@@ -28,6 +28,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&KeepJobList{},
 		&KeepQueue{},
 		&KeepQueueList{},
+		&KeepjobGroup{},
+		&KeepjobGroupList{},
 	)
 
 	// register the type in the scheme

@@ -5,6 +5,7 @@ resources:
 - bases/infra.keep.cn_virtualnodes.yaml
 - bases/infra.keep.cn_keepjobs.yaml
 - bases/infra.keep.cn_keepqueues.yaml
+- bases/infra.keep.cn_keepjobgroups.yaml
 #+kubebuilder:scaffold:crdkustomizeresource
 
 patchesStrategicMerge:
@@ -13,6 +14,7 @@ patchesStrategicMerge:
 #- patches/webhook_in_virtualnodes.yaml
 #- patches/webhook_in_keepjobs.yaml
 #- patches/webhook_in_keepqueues.yaml
+#- patches/webhook_in_keepjobgroups.yaml
 #+kubebuilder:scaffold:crdkustomizewebhookpatch
 
 # [CERTMANAGER] To enable cert-manager, uncomment all the sections with [CERTMANAGER] prefix.
@@ -20,6 +22,7 @@ patchesStrategicMerge:
 #- patches/cainjection_in_virtualnodes.yaml
 #- patches/cainjection_in_keepjobs.yaml
 #- patches/cainjection_in_keepqueues.yaml
+#- patches/cainjection_in_keepjobgroups.yaml
 #+kubebuilder:scaffold:crdkustomizecainjectionpatch
 
 # the following config is for teaching kustomize how to do kustomization for CRDs.

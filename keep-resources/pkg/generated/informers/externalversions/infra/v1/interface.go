@@ -28,6 +28,8 @@ type Interface interface {
 	KeepJobs() KeepJobInformer
 	// KeepQueues returns a KeepQueueInformer.
 	KeepQueues() KeepQueueInformer
+	// KeepjobGroups returns a KeepjobGroupInformer.
+	KeepjobGroups() KeepjobGroupInformer
 	// VirtualNodes returns a VirtualNodeInformer.
 	VirtualNodes() VirtualNodeInformer
 }
@@ -51,6 +53,11 @@ func (v *version) KeepJobs() KeepJobInformer {
 // KeepQueues returns a KeepQueueInformer.
 func (v *version) KeepQueues() KeepQueueInformer {
 	return &keepQueueInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+}
+
+// KeepjobGroups returns a KeepjobGroupInformer.
+func (v *version) KeepjobGroups() KeepjobGroupInformer {
+	return &keepjobGroupInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // VirtualNodes returns a VirtualNodeInformer.

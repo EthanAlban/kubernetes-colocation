@@ -18,7 +18,7 @@ spec:
   - name: v1
     schema:
       openAPIV3Schema:
-        description: KeepQueue is the Schema for the keepqueues API
+        description: sssad KeepQueue is the Schema for the keepqueues API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation

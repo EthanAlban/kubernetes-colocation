@@ -18,10 +18,11 @@ package main
 
 import (
 	"flag"
+	"os"
+
 	"node-simulator/controllers/infra/keepJobs"
 	"node-simulator/controllers/infra/keepQueues"
 	node_clients "node-simulator/controllers/infra/node-clients"
-	"os"
 
 	v1 "github.com/keep-resources/pkg/apis/infra/v1"
 
@@ -39,6 +40,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
 	infrav1 "github.com/keep-resources/pkg/apis/infra/v1"
+
 	infracontrollers "node-simulator/controllers/infra"
 	//+kubebuilder:scaffold:imports
 )
@@ -105,6 +107,13 @@ func main() {
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "KeepQueue")
+		os.Exit(1)
+	}
+	if err = (&infracontrollers.KeepjobGroupReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "KeepjobGroup")
 		os.Exit(1)
 	}
 	//+kubebuilder:scaffold:builder

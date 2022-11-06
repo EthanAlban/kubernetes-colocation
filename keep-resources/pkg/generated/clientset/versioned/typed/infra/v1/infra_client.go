@@ -28,6 +28,7 @@ type InfraV1Interface interface {
 	RESTClient() rest.Interface
 	KeepJobsGetter
 	KeepQueuesGetter
+	KeepjobGroupsGetter
 	VirtualNodesGetter
 }
 
@@ -42,6 +43,10 @@ func (c *InfraV1Client) KeepJobs(namespace string) KeepJobInterface {
 
 func (c *InfraV1Client) KeepQueues() KeepQueueInterface {
 	return newKeepQueues(c)
+}
+
+func (c *InfraV1Client) KeepjobGroups(namespace string) KeepjobGroupInterface {
+	return newKeepjobGroups(c, namespace)
 }
 
 func (c *InfraV1Client) VirtualNodes(namespace string) VirtualNodeInterface {

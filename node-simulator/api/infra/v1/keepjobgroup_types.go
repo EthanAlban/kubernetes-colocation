@@ -23,29 +23,17 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-// KeepJobSpec defines the desired state of KeepJob
-type KeepJobSpec struct {
+// KeepjobGroupSpec defines the desired state of KeepjobGroup
+type KeepjobGroupSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-	JobName      string      `json:"job_name,omitempty"`
-	Namespace    string      `json:"namespace,omitempty"`
-	Image        string      `json:"image,omitempty"`
-	JobType      string      `json:"job_type,omitempty"`
-	Replica      int         `json:"replica,omitempty"`
-	Weight       int         `json:"weight,omitempty"`
-	Priority     int         `json:"priority,omitempty"`
-	Plugins      []string    `json:"plugins,omitempty"`
-	JobQueueName string      `json:"job_queue_name,omitempty"`
-	InQueue      bool        `json:"in_queue,omitempty"`
-	CreatingTime metav1.Time `json:"creating_time,omitempty"`
+
+	// MinMember  表示在这个group中最少需要的任务数，当其中的任务数量没有达到这个量级，没有任务会启动，当达到这个量级之后集群中的资源满足所有任务同时启动，那么任务就会被启动
+	MinMember string `json:"minmember,omitempty"`
 }
 
-type ResourceRequests struct {
-	Memory int `json:"memory,omitempty"` //
-}
-
-// KeepJobStatus defines the observed state of KeepJob
-type KeepJobStatus struct {
+// KeepjobGroupStatus defines the observed state of KeepjobGroup
+type KeepjobGroupStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 }
@@ -54,24 +42,24 @@ type KeepJobStatus struct {
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
 
-// KeepJob is the Schema for the keepjobs API
-type KeepJob struct {
+// KeepjobGroup is the Schema for the keepjobgroups API
+type KeepjobGroup struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   KeepJobSpec   `json:"spec,omitempty"`
-	Status KeepJobStatus `json:"status,omitempty"`
+	Spec   KeepjobGroupSpec   `json:"spec,omitempty"`
+	Status KeepjobGroupStatus `json:"status,omitempty"`
 }
 
 //+kubebuilder:object:root=true
 
-// KeepJobList contains a list of KeepJob
-type KeepJobList struct {
+// KeepjobGroupList contains a list of KeepjobGroup
+type KeepjobGroupList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []KeepJob `json:"items"`
+	Items           []KeepjobGroup `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&KeepJob{}, &KeepJobList{})
+	SchemeBuilder.Register(&KeepjobGroup{}, &KeepjobGroupList{})
 }

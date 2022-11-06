@@ -32,4 +32,13 @@ resources:
   kind: KeepQueue
   path: node-simulator/apis/infra/v1
   version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: keep.cn
+  group: infra
+  kind: KeepjobGroup
+  path: node-simulator/apis/infra/v1
+  version: v1
 version: "3"

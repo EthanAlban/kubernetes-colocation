@@ -22,4 +22,6 @@ type KeepJobExpansion interface{}
 
 type KeepQueueExpansion interface{}
 
+type KeepjobGroupExpansion interface{}
+
 type VirtualNodeExpansion interface{}

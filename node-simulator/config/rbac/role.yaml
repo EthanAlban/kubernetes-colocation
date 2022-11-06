@@ -38,6 +38,32 @@ rules:
 - apiGroups:
   - infra.keep.cn
   resources:
+  - keepjobgroups
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - infra.keep.cn
+  resources:
+  - keepjobgroups/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - infra.keep.cn
+  resources:
+  - keepjobgroups/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - infra.keep.cn
+  resources:
   - keepjobs
   verbs:
   - create
