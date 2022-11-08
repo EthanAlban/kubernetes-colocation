@@ -1,4 +1,4 @@
-#没有网络图标 且 连不上网
+# 没有网络图标 且 连不上网
 # 停止服务
 service NetworkManager stop
 # 删除缓冲文件

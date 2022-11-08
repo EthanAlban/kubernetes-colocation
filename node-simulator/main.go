@@ -18,6 +18,7 @@ package main
 
 import (
 	"flag"
+	keepJobGroupController "node-simulator/controllers/infra/keepJobGroup"
 	"os"
 
 	"node-simulator/controllers/infra/keepJobs"
@@ -109,7 +110,7 @@ func main() {
 		setupLog.Error(err, "unable to create controller", "controller", "KeepQueue")
 		os.Exit(1)
 	}
-	if err = (&infracontrollers.KeepjobGroupReconciler{
+	if err = (&keepJobGroupController.KeepjobGroupReconciler{
 		Client: mgr.GetClient(),
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {

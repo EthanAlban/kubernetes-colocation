@@ -1,0 +1,5 @@
+package keepJobGroupController
+
+const (
+	KeepJobGroupLable = ""
+)
