@@ -9,7 +9,7 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
-			redirect: '/home/pod_exam'
+			redirect: '/home/node_list'
 		},
 
 		{
@@ -17,28 +17,40 @@ export default new Router({
 			name: 'home',
 			component: () => import('@/views/index.vue'),
 			children: [{
-				path: '/home/pod_exam',
-				name: 'pod_exam',
+				path: '/home/node_list',
+				name: 'node_list',
 				component(resolve) {
-					require(['@/views/pod_exam.vue'], resolve)
+					require(['@/views/node_list.vue'], resolve)
 				},
 				meta: {
 					// 页面标题title
-					title: 'pod例子'
+					title: '集群节点'
 				}
 				// component: () => import('@/views/Home/Nav1.vue'),
-			}, {
-				path: '/home/device_handler',
-				name: 'device_handler',
+			}, 
+			{
+				path: '/home/loads/load_list',
+				name: 'load_list',
 				component(resolve) {
-					require(['@/views/device_handler.vue'], resolve)
+					require(['@/views/loads/load_list.vue'], resolve)
 				},
 				meta: {
 					// 页面标题title
-					title: 'device操作'
-				}
-				// component: () => import('@/views/Home/Nav1.vue'),
-			}, ]
+					title: '负载列表'
+				},
+			},
+			{
+				path: '/home/loads/create_load',
+				name: 'create_load',
+				component(resolve) {
+					require(['@/views/loads/create_load.vue'], resolve)
+				},
+				meta: {
+					// 页面标题title
+					title: '创建负载'
+				},
+			},
+		]
 		}
 	]
 })

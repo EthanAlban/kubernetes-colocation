@@ -11,8 +11,19 @@ export default {
 	GetPodByPodname:podname=>{
 		return Get('pod/get_pod_by_podname?podname='+podname)
 	},
-	// InsertNewUpdate:params=>{
-	// 	console.log(params)
-	// 	return Post('insert_new_update',params)
-	// }
+	// =================================================================  NODES =============================================
+	GetAllVirtualNodes:()=>{
+		return Get('virtual_node/all')
+	},
+	// =================================================================  KEEPJOB ============================================
+	GetAllKeepJobs:()=>{
+		return Get('keep_job/all')
+	},
+	GetAllKeepJobTypes:()=>{
+		return Get('keep_job/types/all')
+	},
+	// =================================================================  CORE ===============================================
+	GetAllNamespace:()=>{
+		return Get('core/namespace/all')
+	}
 }
