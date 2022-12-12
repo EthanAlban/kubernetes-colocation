@@ -1,3 +1,4 @@
+# directly run this script to generate new generated folders and copy to node-simulator
 echo "====================  update clienset  ====================="
 cd /home/et/Desktop/Projects/keep_colocation/keep-resources
 cp -r pkg/apis/ ~/go/src/github.com/keep-resources/pkg/

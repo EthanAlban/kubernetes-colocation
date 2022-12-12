@@ -1,0 +1,18 @@
+apiVersion: infra.keep.cn/v1
+kind: KeepJob
+metadata:
+  name: keepjob-bacth-sample
+spec:
+  job_name: keepjob-bacth-sample
+  job_type: batch_job
+  batch_jobs:
+    - batch_subname: exector_1
+      cron: 0*/5***?
+      dataset: mnt/dataset/usrs/admin/exector_1/set1
+      replica_offset: 0
+  namespace: default
+  image: nginx
+  replica: 2
+  plugins: [ "service" ]
+  job_queue_name: keepqueue-default
+

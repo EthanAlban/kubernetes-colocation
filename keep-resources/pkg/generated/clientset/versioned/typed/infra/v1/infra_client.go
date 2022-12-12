@@ -84,7 +84,7 @@ func New(c rest.Interface) *InfraV1Client {
 func setConfigDefaults(config *rest.Config) error {
 	gv := v1.SchemeGroupVersion
 	config.GroupVersion = &gv
-	config.APIPath = "/apis"
+	config.APIPath = "/volcano"
 	config.NegotiatedSerializer = scheme.Codecs.WithoutConversion()
 
 	if config.UserAgent == "" {

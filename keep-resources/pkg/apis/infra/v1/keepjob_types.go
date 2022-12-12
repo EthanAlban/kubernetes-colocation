@@ -27,17 +27,42 @@ import (
 type KeepJobSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-	JobName      string      `json:"job_name,omitempty"`
-	Namespace    string      `json:"namespace,omitempty"`
-	Image        string      `json:"image,omitempty"`
-	JobType      string      `json:"job_type,omitempty"`
-	Replica      int         `json:"replica,omitempty"`
-	Weight       int         `json:"weight,omitempty"`
-	Priority     int         `json:"priority,omitempty"`
-	Plugins      []string    `json:"plugins,omitempty"`
-	JobQueueName string      `json:"job_queue_name,omitempty"`
-	InQueue      bool        `json:"in_queue,omitempty"`
-	CreatingTime metav1.Time `json:"creating_time,omitempty"`
+	JobName      string           `json:"job_name,omitempty"`
+	Namespace    string           `json:"namespace,omitempty"`
+	Image        string           `json:"image,omitempty"`
+	JobType      string           `json:"job_type,omitempty"` // online_job batch_job  offline_job  ml_job
+	BatchJobs    []KeepBatchJob   `json:"batch_jobs,omitempty"`
+	OfflineJobs  []KeepOfflineJob `json:"offline_jobs,omitempty"`
+	MlJobs       []KeepMLJob      `json:"ml_jobs,omitempty"`
+	Replica      int              `json:"replica,omitempty"`
+	Weight       int              `json:"weight,omitempty"`
+	Priority     int              `json:"priority,omitempty"`
+	Plugins      []string         `json:"plugins,omitempty"`
+	JobQueueName string           `json:"job_queue_name,omitempty"`
+	InQueue      bool             `json:"in_queue,omitempty"`
+	CreatingTime metav1.Time      `json:"creating_time,omitempty"`
+}
+
+type KeepBatchJob struct {
+	BatchSubName  string `json:"batch_subname,omitempty"`
+	Cron          string `json:"cron,omitempty"`
+	ReplicaOffset string `json:"replica_offset,omitempty"`
+	DataSet       string `json:"dataset,omitempty"`
+}
+
+type KeepOfflineJob struct {
+	OfflineSubName string   `json:"offline_subname,omitempty"`
+	Ports          []int    `json:"ports,omitempty"`
+	Masters        []string `json:"masters,omitempty"`
+	Workers        []string `json:"workers,omitempty"`
+	DataSet        string   `json:"dataset,omitempty"`
+	Configuration  string   `json:"configuration,omitempty"`
+}
+
+type KeepMLJob struct {
+	MLSubName string `json:"ml_subname,omitempty"`
+	GpuMem    int64  `json:"gpu_mem,omitempty"`
+	DataSet   string `json:"dataset,omitempty"`
 }
 
 type ResourceRequests struct {

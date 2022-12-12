@@ -18,7 +18,7 @@ spec:
   - name: v1
     schema:
       openAPIV3Schema:
-        description: sssad KeepQueue is the Schema for the keepqueues API
+        description: KeepQueue is the Schema for the keepqueues API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -61,6 +61,19 @@ spec:
                     spec:
                       description: KeepJobSpec defines the desired state of KeepJob
                       properties:
+                        batch_jobs:
+                          items:
+                            properties:
+                              batch_subname:
+                                type: string
+                              cron:
+                                type: string
+                              dataset:
+                                type: string
+                              replica_offset:
+                                type: string
+                            type: object
+                          type: array
                         creating_time:
                           format: date-time
                           type: string
@@ -77,8 +90,43 @@ spec:
                           type: string
                         job_type:
                           type: string
+                        ml_jobs:
+                          items:
+                            properties:
+                              dataset:
+                                type: string
+                              gpu_mem:
+                                format: int64
+                                type: integer
+                              ml_subname:
+                                type: string
+                            type: object
+                          type: array
                         namespace:
                           type: string
+                        offline_jobs:
+                          items:
+                            properties:
+                              configuration:
+                                type: string
+                              dataset:
+                                type: string
+                              masters:
+                                items:
+                                  type: string
+                                type: array
+                              offline_subname:
+                                type: string
+                              ports:
+                                items:
+                                  type: integer
+                                type: array
+                              workers:
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
                         plugins:
                           items:
                             type: string

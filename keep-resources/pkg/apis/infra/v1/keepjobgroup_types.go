@@ -29,7 +29,8 @@ type KeepjobGroupSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// MinMember  表示在这个group中最少需要的任务数，当其中的任务数量没有达到这个量级，没有任务会启动，当达到这个量级之后集群中的资源满足所有任务同时启动，那么任务就会被启动
-	MinMember string `json:"minmember,omitempty"`
+	MinMember string    `json:"minmember,omitempty"`
+	Jobs      []KeepJob `json:"jobs,omitempty"`
 }
 
 // KeepjobGroupStatus defines the observed state of KeepjobGroup

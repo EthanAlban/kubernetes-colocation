@@ -3,6 +3,7 @@ package routers
 import (
 	"colocation_backend/routers/core"
 	"colocation_backend/routers/keepJob"
+	KeepJobGroup "colocation_backend/routers/keepJobGroup"
 	"colocation_backend/routers/keepQueue"
 	"colocation_backend/routers/public"
 	"colocation_backend/routers/user"
@@ -16,4 +17,5 @@ func init() {
 	keepJob.KeepJobRouter()
 	keepQueue.KeepQueueRouter()
 	core.NamespaceRouter()
+	KeepJobGroup.KeepJobGroupRouter()
 }

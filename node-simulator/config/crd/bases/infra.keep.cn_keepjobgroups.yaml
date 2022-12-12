@@ -35,6 +35,109 @@ spec:
           spec:
             description: KeepjobGroupSpec defines the desired state of KeepjobGroup
             properties:
+              jobs:
+                items:
+                  description: KeepJob is the Schema for the keepjobs API
+                  properties:
+                    apiVersion:
+                      description: 'APIVersion defines the versioned schema of this
+                        representation of an object. Servers should convert recognized
+                        schemas to the latest internal value, and may reject unrecognized
+                        values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+                      type: string
+                    kind:
+                      description: 'Kind is a string value representing the REST resource
+                        this object represents. Servers may infer this from the endpoint
+                        the client submits requests to. Cannot be updated. In CamelCase.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                      type: string
+                    metadata:
+                      type: object
+                    spec:
+                      description: KeepJobSpec defines the desired state of KeepJob
+                      properties:
+                        batch_jobs:
+                          items:
+                            properties:
+                              batch_subname:
+                                type: string
+                              cron:
+                                type: string
+                              dataset:
+                                type: string
+                              replica_offset:
+                                type: string
+                            type: object
+                          type: array
+                        creating_time:
+                          format: date-time
+                          type: string
+                        image:
+                          type: string
+                        in_queue:
+                          type: boolean
+                        job_name:
+                          description: 'INSERT ADDITIONAL SPEC FIELDS - desired state
+                            of cluster Important: Run "make" to regenerate code after
+                            modifying this file'
+                          type: string
+                        job_queue_name:
+                          type: string
+                        job_type:
+                          type: string
+                        ml_jobs:
+                          items:
+                            properties:
+                              dataset:
+                                type: string
+                              gpu_mem:
+                                format: int64
+                                type: integer
+                              ml_subname:
+                                type: string
+                            type: object
+                          type: array
+                        namespace:
+                          type: string
+                        offline_jobs:
+                          items:
+                            properties:
+                              configuration:
+                                type: string
+                              dataset:
+                                type: string
+                              masters:
+                                items:
+                                  type: string
+                                type: array
+                              offline_subname:
+                                type: string
+                              ports:
+                                items:
+                                  type: integer
+                                type: array
+                              workers:
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
+                        plugins:
+                          items:
+                            type: string
+                          type: array
+                        priority:
+                          type: integer
+                        replica:
+                          type: integer
+                        weight:
+                          type: integer
+                      type: object
+                    status:
+                      description: KeepJobStatus defines the observed state of KeepJob
+                      type: object
+                  type: object
+                type: array
               minmember:
                 description: MinMember  表示在这个group中最少需要的任务数，当其中的任务数量没有达到这个量级，没有任务会启动，当达到这个量级之后集群中的资源满足所有任务同时启动，那么任务就会被启动
                 type: string

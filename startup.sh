@@ -1,4 +1,5 @@
  minikube start
+ kubectl apply -f https://raw.githubusercontent.com/volcano-sh/volcano/master/installer/volcano-development.yaml
 # ====================================  启动 colocation_backend  =========================================
 cd colocation_backend
 nohup bee run &

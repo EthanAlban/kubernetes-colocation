@@ -1,0 +1,24 @@
+apiVersion: infra.keep.cn/v1
+kind: KeepJob
+metadata:
+  name: keepjob-bacth-sample
+spec:
+  job_name: keepjob-bacth-sample
+  job_type: offline_jobs
+  batch_jobs:
+    - offline_subname: master_1
+      dataset: mnt/dataset/usrs/admin/master_1/set1
+      ports: [ 8000,8001,8002 ]
+      masters: [ 172.17.14.100 ]
+      workers: [ 172.17.14.200,172.17.14.201 ]
+      configuration:
+        server.port: 6124
+    - offline_subname: worker_1
+      dataset: mnt/dataset/usrs/admin/worker_1/set1
+      ports: [ 8003 ]
+      masters: [ 172.17.14.100 ]
+      workers: [ 172.17.14.200,172.17.14.201 ]
+  namespace: default
+  image: nginx
+  job_queue_name: keepqueue-default
+
